@@ -1,178 +1,101 @@
-// Mock data for the Handover Copilot POC.
-// Shape here is the contract the whole team agreed on: passport fields must match
-// what the RAG/backend teammates emit, so swapping this for a real API call later
-// is a one-line change in dataSource.js.
+// Fictional demo data. Nothing here is real payroll advice.
+//
+// Passports (./passports/*.json) follow the team contract exactly
+// (../../../schemas/passport.schema.json) and pass scripts/validate_passports.py.
+// Everything else in this file (users, answer text, conflicts, version notes) is
+// NOT part of that contract: it is the frontend's proposal for what the backend
+// API returns around the passports. See src/api.js for the shapes.
 
-export const currentUser = {
-  id: 'u-sofie',
-  name: 'Sofie Van Damme',
-  role: 'consultant', // 'consultant' | 'owner'
-  clients: ['client-atlas'],
+import beHolidayLeave from './passports/be-holiday-leave.json'
+import beHolidayLeave2024Copy from './passports/be-holiday-leave-2024-copy.json'
+import beTeamsChatAtlas from './passports/be-teams-chat-atlas.json'
+import beEmailNewHire from './passports/be-email-new-hire.json'
+import nlHolidayLeave from './passports/nl-holiday-leave.json'
+
+export const passports = [beHolidayLeave, beHolidayLeave2024Copy, beTeamsChatAtlas, beEmailNewHire, nlHolidayLeave]
+
+// Demo accounts, one per role. Real authentication will come from the backend.
+export const users = [
+  { id: 'person.sofie-vandamme', name: 'Sofie Van Damme', role: 'consultant' },
+  { id: 'person.marc-peeters', name: 'Marc Peeters', role: 'owner' },
+]
+
+// Clients are opaque IDs in the contract; the UI needs a display name.
+export const clientNames = {
+  'client.atlas': 'Client Atlas SA',
 }
 
-export const users = [
-  { id: 'u-sofie', name: 'Sofie Van Damme', role: 'consultant' },
-  { id: 'u-marc', name: 'Marc Peeters', role: 'owner', expertise: ['BE payroll', 'ferie/vakantie'] },
-  { id: 'u-anke', name: 'Anke Willems', role: 'owner', expertise: ['NL payroll'] },
-  { id: 'u-tom', name: 'Tom Dekker', role: 'consultant (uscente)', expertise: ['Client Atlas SA'] },
-]
+// Content excerpt and "what changed" notes per passport (outside the contract).
+export const passportDetails = {
+  'passport.be.holiday-leave': {
+    content:
+      'Holiday leave accrues at 6% of the gross annual salary, calculated monthly. Employees hired after 1 January 2025 accrue leave pro-rata from their month of entry.',
+    versionNotes: [
+      { version: 1, date: '2024-02-03T09:00:00Z', summary: 'First version. New hires start accruing from the first full calendar year after hiring.' },
+      { version: 2, date: '2025-01-15T09:00:00Z', summary: 'Added a monthly calculation example. No rule changes.' },
+      { version: 3, date: '2026-07-12T10:00:00Z', summary: 'New hires now accrue pro-rata from their month of entry, instead of waiting for the first full calendar year.' },
+    ],
+  },
+  'passport.be.holiday-leave-2024-copy': {
+    content:
+      'Holiday leave accrues at 6% of the gross annual salary. New hires start accruing from the first full calendar year after hiring.',
+    versionNotes: [
+      { version: 1, date: '2024-02-05T09:00:00Z', summary: 'Copy of the Belgian procedure (version 1) saved for Client Atlas SA.' },
+    ],
+  },
+  'passport.be.teams-chat-atlas': {
+    content:
+      'Marc: "Careful, for Atlas we still use the old rule for new hires. The client has not formally approved the new procedure yet." No later update in the thread.',
+    versionNotes: [
+      { version: 1, date: '2026-05-15T16:20:00Z', summary: 'Imported from Microsoft Teams.' },
+    ],
+  },
+  'passport.be.email-new-hire': {
+    content:
+      'A colleague asks whether an employee hired in April 2026 accrues holiday leave pro-rata or waits for the first full year. No final answer in the thread.',
+    versionNotes: [
+      { version: 1, date: '2026-06-20T08:45:00Z', summary: 'Imported from Outlook.' },
+    ],
+  },
+  'passport.nl.holiday-leave': {
+    content:
+      'Holiday leave accrues based on weekly contractual hours, with a statutory minimum of four times the weekly working hours.',
+    versionNotes: [
+      { version: 1, date: '2025-03-01T09:00:00Z', summary: 'First version.' },
+      { version: 2, date: '2026-03-01T09:00:00Z', summary: 'Updated for the 2026 statutory minimum.' },
+    ],
+  },
+}
 
-export const documents = [
-  {
-    doc_id: 'proc-ferie-be-v3',
-    titolo: 'Calcolo ferie – Belgio',
-    tipo: 'procedura',
-    proprietario: 'Marc Peeters',
-    ultimo_aggiornamento: '2026-07-12',
-    ultima_verifica: '2026-08-01',
-    paese: 'BE',
-    cliente: 'Client Atlas SA',
-    stato: 'in vigore',
-    sostituisce: 'proc-ferie-be-v2',
-    contenuto: 'Le ferie maturano al 6% della retribuzione lorda annua, calcolate su base mensile. Per i nuovi assunti dopo il 2025, si applica la regola pro-rata dal mese di ingresso.',
-  },
-  {
-    doc_id: 'proc-ferie-be-v2',
-    titolo: 'Calcolo ferie – Belgio (vecchia versione)',
-    tipo: 'procedura',
-    proprietario: 'Marc Peeters',
-    ultimo_aggiornamento: '2024-02-03',
-    ultima_verifica: '2024-02-03',
-    paese: 'BE',
-    cliente: 'Client Atlas SA',
-    stato: 'superato',
-    sostituito_da: 'proc-ferie-be-v3',
-    contenuto: 'Le ferie maturano al 6% della retribuzione lorda annua. I nuovi assunti maturano dal primo anno intero successivo all\'assunzione.',
-  },
-  {
-    doc_id: 'email-ferie-question',
-    titolo: 'Email: dubbio calcolo ferie nuovo assunto',
-    tipo: 'email',
-    proprietario: null,
-    ultimo_aggiornamento: '2026-06-20',
-    ultima_verifica: null,
-    paese: 'BE',
-    cliente: 'Client Atlas SA',
-    stato: 'nessun proprietario',
-    contenuto: 'Un collega chiede se per un assunto di aprile 2026 si applica il pro-rata o si aspetta l\'anno intero. Nessuna risposta definitiva nel thread.',
-  },
-  {
-    doc_id: 'teams-export-ferie',
-    titolo: 'Teams: discussione team payroll BE',
-    tipo: 'chat',
-    proprietario: null,
-    ultimo_aggiornamento: '2026-05-15',
-    ultima_verifica: null,
-    paese: 'BE',
-    cliente: 'Client Atlas SA',
-    stato: 'informale',
-    contenuto: 'Marc: "occhio che per Atlas usiamo ancora la v2, il cliente non ha approvato la v3 formalmente". Nessun aggiornamento successivo nel thread.',
-  },
-  {
-    doc_id: 'proc-ferie-nl-v1',
-    titolo: 'Calcolo ferie – Olanda',
-    tipo: 'procedura',
-    proprietario: 'Anke Willems',
-    ultimo_aggiornamento: '2026-03-01',
-    ultima_verifica: '2026-03-01',
-    paese: 'NL',
-    cliente: 'Client Atlas SA',
-    stato: 'in vigore',
-    contenuto: 'Le ferie maturano in base alle ore contrattuali settimanali, minimo legale 4 volte la settimana lavorativa.',
-  },
-  {
-    doc_id: 'proc-onboarding-generic',
-    titolo: 'Procedura onboarding dipendente (generica gruppo)',
-    tipo: 'procedura',
-    proprietario: 'Anke Willems',
-    ultimo_aggiornamento: '2025-11-10',
-    ultima_verifica: '2025-11-10',
-    paese: 'ALL',
-    cliente: null,
-    stato: 'in vigore',
-    contenuto: 'Checklist standard di onboarding valida per tutti i paesi del gruppo, non specifica per Client Atlas SA.',
-  },
-  {
-    doc_id: 'note-handover-tom',
-    titolo: 'Nota di passaggio di Tom Dekker',
-    tipo: 'nota',
-    proprietario: 'Tom Dekker',
-    ultimo_aggiornamento: '2026-09-25',
-    ultima_verifica: '2026-09-25',
-    paese: 'BE',
-    cliente: 'Client Atlas SA',
-    stato: 'in vigore',
-    contenuto: 'Attenzione: il cliente Atlas ha una clausola contrattuale non standard sul pagamento del tredicesimo. Vedi allegato contratto, non ancora digitalizzato.',
-  },
-  {
-    doc_id: 'contratto-atlas-2023',
-    titolo: 'Contratto quadro Client Atlas SA',
-    tipo: 'contratto',
-    proprietario: 'Marc Peeters',
-    ultimo_aggiornamento: '2023-01-10',
-    ultima_verifica: '2023-01-10',
-    paese: 'BE',
-    cliente: 'Client Atlas SA',
-    stato: 'in vigore',
-    contenuto: 'Clausola 4.2: il tredicesimo viene erogato in due tranche, a giugno e dicembre, difforme dalla prassi standard di erogazione unica.',
-  },
-]
-
-// A pre-baked Q&A example driving the demo's main screen.
-export const exampleAnswer = {
-  domanda: 'Come si calcolano le ferie per un nuovo assunto belga di Client Atlas SA?',
-  risposta:
-    'Per i nuovi assunti belgi dopo il 2025 si applica la regola pro-rata dal mese di ingresso [1]. Attenzione però: una versione precedente della stessa procedura indica di aspettare l\'anno intero [2], e una discussione Teams recente suggerisce che Client Atlas potrebbe ancora seguire la versione vecchia, non approvata formalmente nella nuova forma [4].',
-  fonti: [
+// The pre-built answer for the demo question.
+export const demoAnswer = {
+  question: 'How is holiday leave calculated in Belgium for a new hire at Client Atlas SA?',
+  context: { country: 'BE', client: 'client.atlas', module: 'pay' },
+  answer:
+    'Holiday leave in Belgium accrues at 6% of the gross annual salary, calculated monthly [1]. For new hires, the current procedure applies a pro-rata rule from the month of entry [1]. However, a recent Teams discussion says Client Atlas SA may still apply the previous rule, where new hires wait for the first full calendar year [2], as described in an older copy of the procedure [3].',
+  uncertainty:
+    'It is not confirmed whether Client Atlas SA formally approved the new procedure. Check with the owner before answering the client.',
+  sources: [
+    { ref: 1, passportId: 'passport.be.holiday-leave' },
+    { ref: 2, passportId: 'passport.be.teams-chat-atlas' },
+    { ref: 3, passportId: 'passport.be.holiday-leave-2024-copy' },
+    { ref: 4, passportId: 'passport.be.email-new-hire' },
+    { ref: 5, passportId: 'passport.nl.holiday-leave' },
+  ],
+  conflicts: [
     {
-      doc_id: 'proc-ferie-be-v3',
-      ref: 1,
-      fiducia: 'alta',
-      punteggio: 88,
-      motivi: [
-        { ok: true, testo: 'aggiornato 2 mesi fa' },
-        { ok: true, testo: 'vale per il Belgio' },
-        { ok: true, testo: 'proprietario assegnato: Marc Peeters' },
-        { ok: false, testo: 'in conflitto con proc-ferie-be-v2' },
-      ],
-    },
-    {
-      doc_id: 'proc-ferie-be-v2',
-      ref: 2,
-      fiducia: 'bassa',
-      punteggio: 25,
-      motivi: [
-        { ok: false, testo: 'superato da proc-ferie-be-v3' },
-        { ok: false, testo: 'non aggiornato da oltre 2 anni' },
-        { ok: true, testo: 'vale per il Belgio' },
-      ],
-    },
-    {
-      doc_id: 'email-ferie-question',
-      ref: 3,
-      fiducia: 'bassa',
-      punteggio: 20,
-      motivi: [
-        { ok: false, testo: 'nessun proprietario' },
-        { ok: false, testo: 'nessuna risposta definitiva nel thread' },
-      ],
-    },
-    {
-      doc_id: 'teams-export-ferie',
-      ref: 4,
-      fiducia: 'media',
-      punteggio: 45,
-      motivi: [
-        { ok: false, testo: 'fonte informale, non un documento ufficiale' },
-        { ok: true, testo: 'segnala un rischio reale non ancora risolto' },
-      ],
+      id: 'conflict.be.new-hire-accrual',
+      title: 'When do new hires start accruing holiday leave?',
+      sourceA: { ref: 1, passportId: 'passport.be.holiday-leave', excerpt: 'New hires accrue leave pro-rata from their month of entry.' },
+      sourceB: { ref: 2, passportId: 'passport.be.teams-chat-atlas', excerpt: 'For Atlas we still use the old rule: new hires wait for the first full calendar year.' },
+      difference:
+        'Source A starts accrual in the month of entry. Source B says Client Atlas SA still waits for the first full calendar year. For an employee hired in April, this changes the leave for the rest of the year.',
+      expert: {
+        id: 'person.marc-peeters',
+        name: 'Marc Peeters',
+        reason: 'Owner of the Belgian holiday leave procedure and author of the Teams message.',
+        expertise: ['Belgian payroll', 'Holiday leave'],
+      },
     },
   ],
-  conflitto: {
-    titolo: 'Procedura ferie BE: versione nuova vs versione applicata dal cliente',
-    fonte_a: { doc_id: 'proc-ferie-be-v3', estratto: 'Pro-rata dal mese di ingresso per i nuovi assunti dopo il 2025.' },
-    fonte_b: { doc_id: 'proc-ferie-be-v2', estratto: 'Si aspetta l\'anno intero successivo all\'assunzione.' },
-    nota: 'Il cliente Atlas potrebbe non aver approvato formalmente la v3 (vedi discussione Teams del 15/05/2026).',
-    chi_chiarisce: { user_id: 'u-marc', motivo: 'proprietario di entrambe le versioni della procedura' },
-  },
 }
