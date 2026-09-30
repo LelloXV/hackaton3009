@@ -1,4 +1,4 @@
-// Cloud Functions entry point: ingest, ask, verifySource.
+  // Cloud Functions entry point: ingest, ask, verifySource.
 // Security model:
 //  - Clients never write to Firestore directly (see firestore.rules); these functions do, via the Admin SDK.
 //  - Every function checks authentication, validates input with zod and returns generic errors only.
