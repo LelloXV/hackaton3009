@@ -1,0 +1,160 @@
+{
+  "schemaVersion": "1.1.0",
+  "id": "passport.be-payroll-go-live",
+  "reference": "#287",
+  "title": "Belgium payroll go-live readiness",
+  "description": "Country workstream of Global Payroll Harmonisation: readiness checks and cut-over plan for Belgium.",
+  "issuer": {
+    "id": "person.lotte-maes",
+    "name": "Lotte Maes",
+    "type": "person"
+  },
+  "owner": {
+    "id": "team.payroll-ops-be",
+    "name": "Payroll Operations BE",
+    "type": "team"
+  },
+  "createdAt": "2026-06-01T09:00:00Z",
+  "updatedAt": "2026-09-10T11:00:00Z",
+  "updatedBy": {
+    "id": "person.lotte-maes",
+    "name": "Lotte Maes",
+    "type": "person"
+  },
+  "lastVerifiedAt": "2026-09-15T15:00:00Z",
+  "expiresAt": "2027-04-30T17:00:00Z",
+  "visa": {
+    "countries": {
+      "mode": "listed",
+      "values": [
+        "BE"
+      ]
+    },
+    "clients": {
+      "mode": "all",
+      "values": []
+    },
+    "modules": {
+      "mode": "listed",
+      "values": [
+        "pay"
+      ]
+    }
+  },
+  "departments": [
+    "Pay · Payroll Operations BE"
+  ],
+  "sourceType": "project",
+  "source": {
+    "id": "jira.pay-287",
+    "uri": "https://jira.example.com/browse/PAY-287"
+  },
+  "version": 2,
+  "stamps": [
+    {
+      "id": "stamp.be-go-live.verified.v1",
+      "type": "verified",
+      "at": "2026-06-05T10:00:00Z",
+      "actor": {
+        "id": "person.lotte-maes",
+        "name": "Lotte Maes",
+        "type": "person"
+      },
+      "version": 1,
+      "note": "Workstream plan reviewed with the client.",
+      "relatedStampIds": []
+    },
+    {
+      "id": "stamp.be-go-live.verified.v2",
+      "type": "verified",
+      "at": "2026-09-15T15:00:00Z",
+      "actor": {
+        "id": "person.lotte-maes",
+        "name": "Lotte Maes",
+        "type": "person"
+      },
+      "version": 2,
+      "note": "Cut-over plan reviewed; go-live 1 April 2027 confirmed with the client.",
+      "relatedStampIds": []
+    }
+  ],
+  "linkedSources": [
+    {
+      "id": "doc.be.cutover-plan",
+      "title": "Cut-over plan Belgium",
+      "sourceType": "business_record",
+      "app": "Excel",
+      "version": "v3",
+      "updatedAt": "2026-09-10T11:00:00Z",
+      "countries": [
+        "BE"
+      ],
+      "uri": "https://sharepoint.example.com/be/cutover-plan.xlsx",
+      "relation": "supports"
+    },
+    {
+      "id": "chat.gph.teams-go-live",
+      "title": "Teams thread",
+      "sourceType": "chat",
+      "app": "Microsoft Teams",
+      "version": null,
+      "updatedAt": "2026-09-18T15:40:00Z",
+      "countries": [
+        "BE",
+        "NL"
+      ],
+      "uri": "https://teams.example.com/gph/go-live",
+      "relation": "supports"
+    },
+    {
+      "id": "doc.be.readiness-checklist",
+      "title": "Readiness checklist Belgium",
+      "sourceType": "document",
+      "app": "Confluence",
+      "version": null,
+      "updatedAt": "2026-09-08T09:00:00Z",
+      "countries": [
+        "BE"
+      ],
+      "uri": "https://confluence.example.com/be/readiness",
+      "relation": "supports"
+    }
+  ],
+  "openIssues": [
+    {
+      "id": "issue.be.parallel-run",
+      "title": "Parallel run schedule not final",
+      "severity": "minor",
+      "openedAt": "2026-09-15T15:00:00Z"
+    }
+  ],
+  "updates": [
+    {
+      "version": 1,
+      "at": "2026-06-01T09:00:00Z",
+      "actor": {
+        "id": "person.lotte-maes",
+        "name": "Lotte Maes",
+        "type": "person"
+      },
+      "summary": "Workstream set up; target go-live 1 April 2027 agreed with the client."
+    },
+    {
+      "version": 2,
+      "at": "2026-09-10T11:00:00Z",
+      "actor": {
+        "id": "person.lotte-maes",
+        "name": "Lotte Maes",
+        "type": "person"
+      },
+      "summary": "Cut-over plan added."
+    }
+  ],
+  "related": [
+    {
+      "passportId": "passport.global-payroll-harmonisation",
+      "title": "Global Payroll Harmonisation",
+      "relation": "Parent project"
+    }
+  ]
+}

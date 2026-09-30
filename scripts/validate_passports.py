@@ -79,6 +79,25 @@ def validate(passport, now=None):
     if any(source["relation"] == "contradicts" for source in passport["linkedSources"]):
         if not any(stamp["type"] == "conflict" for stamp in current):
             errors.append("Contradicting evidence requires a current-version conflict stamp")
+    for source in passport["linkedSources"]:
+        if source["updatedAt"] and timestamp(source["updatedAt"]) > now:
+            errors.append(f"{source['id']}: linked source updatedAt is in the future")
+    # v1.1: updates describe what changed per version, one entry per version.
+    versions = [update["version"] for update in passport["updates"]]
+    if len(set(versions)) != len(versions):
+        errors.append("Update versions must be unique")
+    if passport["version"] not in versions:
+        errors.append("updates must describe the current version")
+    for update in passport["updates"]:
+        if update["version"] > passport["version"]:
+            errors.append(f"update v{update['version']}: references a future version")
+        if not created <= timestamp(update["at"]) <= now:
+            errors.append(f"update v{update['version']}: time must be between creation and now")
+    issue_ids = [issue["id"] for issue in passport["openIssues"]]
+    if len(set(issue_ids)) != len(issue_ids):
+        errors.append("Open issue IDs must be unique")
+    if any(related["passportId"] == passport["id"] for related in passport["related"]):
+        errors.append("A passport cannot be related to itself")
     return errors
 
 

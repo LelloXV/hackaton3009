@@ -1,140 +1,633 @@
 {
-  "_about": "Passport schema v1 for the SD Worx challenge. The example below is Issue #241 (fictional data) and doubles as demo data. Dates are relative to the demo day, 30 Sep 2026.",
-
-  "scoring": {
-    "rule_per_status": {
-      "ok": "full points",
-      "partial": "points x covered share (e.g. 15/17 countries)",
-      "stale": "half points",
-      "missing": "0 points",
-      "conflict": "0 points"
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Knowledge Passport",
+  "description": "Shared SD Worx hackathon passport contract, version 1.1.0.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": {
+      "const": "1.1.0"
     },
-    "criteria": [
-      { "id": "sources_agree",   "label": "Sources agree",      "weight": 20, "question": "Do the linked sources say the same thing about key facts?" },
-      { "id": "recency",         "label": "Last updated",       "weight": 20, "question": "Was the passport updated in the last 3 months?" },
-      { "id": "owner_unit",      "label": "Owner (unit)",       "weight": 15, "question": "Is an active unit accountable, with a named contact?" },
-      { "id": "scope_coverage",  "label": "Scope coverage",     "weight": 15, "question": "Does it cover every country and module it claims to apply to?" },
-      { "id": "owner_review",    "label": "Owner review",       "weight": 10, "question": "Has the owner unit reviewed it since the last update, within 3 months?" },
-      { "id": "department",      "label": "Department defined", "weight": 10, "question": "Is it placed under a mysdworx pillar and module?" },
-      { "id": "open_questions",  "label": "Open questions",     "weight": 10, "question": "Are known impacts and questions answered?" }
-    ],
-    "score_formula": "sum of points over all 7 criteria; total weight = 100",
-    "bands": { "high": ">= 80", "medium": "50-79", "low": "< 50" }
+    "id": {
+      "$ref": "#/$defs/identifier"
+    },
+    "reference": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 50
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 500
+    },
+    "description": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 1000
+    },
+    "issuer": {
+      "$ref": "#/$defs/actor"
+    },
+    "owner": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/actor"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "createdAt": {
+      "$ref": "#/$defs/timestamp"
+    },
+    "updatedAt": {
+      "$ref": "#/$defs/timestamp"
+    },
+    "updatedBy": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/actor"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "lastVerifiedAt": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/timestamp"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "expiresAt": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/timestamp"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "visa": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "countries": {
+          "$ref": "#/$defs/countryScope"
+        },
+        "clients": {
+          "$ref": "#/$defs/clientScope"
+        },
+        "modules": {
+          "$ref": "#/$defs/moduleScope"
+        }
+      },
+      "required": [
+        "countries",
+        "clients",
+        "modules"
+      ]
+    },
+    "departments": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 200
+      },
+      "uniqueItems": true,
+      "maxItems": 50
+    },
+    "sourceType": {
+      "$ref": "#/$defs/sourceType"
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "uri": {
+          "$ref": "#/$defs/uri"
+        }
+      },
+      "required": [
+        "id",
+        "uri"
+      ]
+    },
+    "version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "stamps": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/stamp"
+      },
+      "uniqueItems": true
+    },
+    "linkedSources": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/linkedSource"
+      },
+      "uniqueItems": true
+    },
+    "openIssues": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/openIssue"
+      },
+      "uniqueItems": true
+    },
+    "updates": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/update"
+      },
+      "uniqueItems": true,
+      "minItems": 1
+    },
+    "related": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/relatedPassport"
+      },
+      "uniqueItems": true
+    }
   },
-
-  "passport": {
-    "id": "ISS-241",
-    "display_id": "Issue #241",
-    "title": "Global Payroll Harmonisation",
-    "description": "Harmonise payroll processes and configurations across key countries to improve efficiency, compliance and data quality.",
-    "version": "1.2",
-
-    "department": {
-      "pillar": "Pay",
-      "module": "Payroll processing",
-      "unit": "Payroll Operations",
-      "related_pillars": ["HR", "Time"]
+  "required": [
+    "schemaVersion",
+    "id",
+    "reference",
+    "title",
+    "description",
+    "issuer",
+    "owner",
+    "createdAt",
+    "updatedAt",
+    "updatedBy",
+    "lastVerifiedAt",
+    "expiresAt",
+    "visa",
+    "departments",
+    "sourceType",
+    "source",
+    "version",
+    "stamps",
+    "linkedSources",
+    "openIssues",
+    "updates",
+    "related"
+  ],
+  "$defs": {
+    "identifier": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$"
     },
-
-    "owner_unit": {
-      "name": "Transformation Office",
-      "responsibility": "Accountable for accuracy and updates",
-      "contact_person": "Jane De Smet",
-      "contact_since": "2026-01-15",
-      "backup_contact": "Lotte Beke"
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d+)?Z$"
     },
-
-    "applies_to": {
-      "countries_claimed": ["BE", "NL", "FR", "DE", "ES", "IT", "PT", "LU", "AT", "CH", "IE", "GB", "PL", "CZ", "SE", "DK", "FI"],
-      "countries_covered": ["BE", "NL", "FR", "DE", "ES", "IT", "PT", "LU", "AT", "CH", "IE", "GB", "PL", "CZ", "SE"],
-      "modules": ["Payroll processing", "Payroll configuration", "Mandatory payroll declarations"]
+    "uri": {
+      "type": "string",
+      "format": "uri",
+      "pattern": "^https://",
+      "maxLength": 2048
     },
-
-    "last_updated": { "date": "2026-09-12", "by": "Jane De Smet" },
-    "last_owner_review": { "date": "2026-06-02", "by": "Transformation Office" },
-    "review_interval_months": 3,
-
-    "sources": [
-      {
-        "ref": 1,
-        "id": "SRC-001",
-        "title": "Project plan",
-        "type": "document",
-        "system": "SharePoint",
-        "authority": "official",
-        "version": "1.4",
-        "last_modified": "2026-09-03",
-        "author_unit": "Transformation Office",
-        "url": "https://example.invalid/sharepoint/project-plan",
-        "key_facts": { "go_live_date": "2026-11-01" },
-        "status": "ok"
+    "actor": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        },
+        "type": {
+          "enum": [
+            "person",
+            "team",
+            "system"
+          ]
+        }
       },
-      {
-        "ref": 2,
-        "id": "SRC-002",
-        "title": "Teams thread",
-        "type": "conversation",
-        "system": "Microsoft Teams",
-        "authority": "informal",
-        "last_modified": "2026-09-18",
-        "author_unit": "Payroll Operations",
-        "url": "https://example.invalid/teams/payroll-harmonisation",
-        "key_facts": { "go_live_date": "2026-11-15" },
-        "status": "conflict"
-      },
-      {
-        "ref": 3,
-        "id": "SRC-003",
-        "title": "Scope file",
-        "type": "data",
-        "system": "Excel",
-        "authority": "working document",
-        "last_modified": "2024-03-14",
-        "author_unit": "Transformation Office",
-        "url": "https://example.invalid/sharepoint/scope-2024.xlsx",
-        "key_facts": { "countries_covered": 15 },
-        "status": "outdated"
-      },
-      {
-        "ref": 4,
-        "id": "SRC-004",
-        "title": "Change log",
-        "type": "document",
-        "system": "Confluence",
-        "authority": "official",
-        "last_modified": "2026-09-12",
-        "author_unit": "Transformation Office",
-        "url": "https://example.invalid/confluence/change-log",
-        "key_facts": {},
-        "status": "ok"
-      }
-    ],
-
-    "open_questions": [
-      { "id": "Q-01", "text": "HR module impact not covered", "raised": "2026-09-10", "status": "open" }
-    ],
-
-    "checks": [
-      { "criterion": "sources_agree",  "status": "conflict", "points": 0,    "detail": "Conflicting go-live date: plan [1] says 1 Nov, Teams thread [2] says 15 Nov", "evidence": [1, 2] },
-      { "criterion": "open_questions", "status": "missing",  "points": 0,    "detail": "HR module impact not covered", "evidence": [] },
-      { "criterion": "owner_review",   "status": "stale",    "points": 5,    "detail": "Last review 2 Jun 2026, before the 12 Sep update (> 3 months ago)", "evidence": [4] },
-      { "criterion": "scope_coverage", "status": "partial",  "points": 13.2, "detail": "Covers 15/17 countries; scope file [3] is from 2024", "evidence": [3] },
-      { "criterion": "department",     "status": "ok",       "points": 10,   "detail": "Pay · Payroll Operations", "evidence": [] },
-      { "criterion": "owner_unit",     "status": "ok",       "points": 15,   "detail": "Transformation Office, contact Jane De Smet", "evidence": [] },
-      { "criterion": "recency",        "status": "ok",       "points": 20,   "detail": "12 Sep 2026 (within 3 months)", "evidence": [4] }
-    ],
-
-    "score": { "value": 63, "band": "medium", "computed_at": "2026-09-30T18:00:00Z" },
-
-    "summary": {
-      "text": "Mostly reliable, but there are conflicts and missing details. Confirm the go-live date: the project plan [1] says 1 Nov, the Teams thread [2] says 15 Nov. The owner unit should review the passport and update the scope [3].",
-      "citations": [1, 2, 3]
+      "required": [
+        "id",
+        "name",
+        "type"
+      ]
     },
-
-    "stamps": [
-      { "version": "1.0", "date": "2026-01-15", "by": "Transformation Office", "action": "issued" },
-      { "version": "1.1", "date": "2026-06-02", "by": "Transformation Office", "action": "owner review" },
-      { "version": "1.2", "date": "2026-09-12", "by": "Jane De Smet", "action": "updated, not yet reviewed" }
-    ]
+    "sourceType": {
+      "enum": [
+        "project",
+        "document",
+        "chat",
+        "email",
+        "business_record",
+        "expert_note",
+        "generated_answer"
+      ]
+    },
+    "countryScope": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "mode": {
+          "enum": [
+            "all",
+            "listed",
+            "unknown"
+          ]
+        },
+        "values": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Z]{2}$"
+          },
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "mode",
+        "values"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "mode": {
+                "const": "listed"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "values": {
+                "minItems": 1
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "values": {
+                "maxItems": 0
+              }
+            }
+          }
+        }
+      ]
+    },
+    "clientScope": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "mode": {
+          "enum": [
+            "all",
+            "listed",
+            "unknown"
+          ]
+        },
+        "values": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/identifier"
+          },
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "mode",
+        "values"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "mode": {
+                "const": "listed"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "values": {
+                "minItems": 1
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "values": {
+                "maxItems": 0
+              }
+            }
+          }
+        }
+      ]
+    },
+    "moduleScope": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "mode": {
+          "enum": [
+            "all",
+            "listed",
+            "unknown"
+          ]
+        },
+        "values": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "hr",
+              "pay",
+              "time"
+            ]
+          },
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "mode",
+        "values"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "mode": {
+                "const": "listed"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "values": {
+                "minItems": 1
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "values": {
+                "maxItems": 0
+              }
+            }
+          }
+        }
+      ]
+    },
+    "stamp": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "type": {
+          "enum": [
+            "verified",
+            "conflict",
+            "conflict_resolved",
+            "revoked",
+            "note"
+          ]
+        },
+        "at": {
+          "$ref": "#/$defs/timestamp"
+        },
+        "actor": {
+          "$ref": "#/$defs/actor"
+        },
+        "version": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "note": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        },
+        "relatedStampIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/identifier"
+          },
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "at",
+        "actor",
+        "version",
+        "note",
+        "relatedStampIds"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "conflict_resolved"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "relatedStampIds": {
+                "minItems": 1
+              }
+            }
+          }
+        }
+      ]
+    },
+    "linkedSource": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        },
+        "sourceType": {
+          "$ref": "#/$defs/sourceType"
+        },
+        "app": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "version": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 50
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "updatedAt": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/timestamp"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "countries": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Z]{2}$"
+          },
+          "uniqueItems": true
+        },
+        "uri": {
+          "$ref": "#/$defs/uri"
+        },
+        "relation": {
+          "enum": [
+            "supports",
+            "contradicts",
+            "derived_from",
+            "supersedes"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "sourceType",
+        "app",
+        "version",
+        "updatedAt",
+        "countries",
+        "uri",
+        "relation"
+      ]
+    },
+    "openIssue": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        },
+        "severity": {
+          "enum": [
+            "minor",
+            "major"
+          ]
+        },
+        "openedAt": {
+          "$ref": "#/$defs/timestamp"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "severity",
+        "openedAt"
+      ]
+    },
+    "update": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "version": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "at": {
+          "$ref": "#/$defs/timestamp"
+        },
+        "actor": {
+          "$ref": "#/$defs/actor"
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        }
+      },
+      "required": [
+        "version",
+        "at",
+        "actor",
+        "summary"
+      ]
+    },
+    "relatedPassport": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "passportId": {
+          "$ref": "#/$defs/identifier"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        },
+        "relation": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        }
+      },
+      "required": [
+        "passportId",
+        "title",
+        "relation"
+      ]
+    }
   }
 }

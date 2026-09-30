@@ -1,0 +1,9 @@
+{
+  "generatedFrom": "service/functions/src/seedData.ts",
+  "now": "2026-09-30T12:00:00.000Z",
+  "question": {
+    "question": "When does payroll harmonisation go live in Belgium?",
+    "country": "BE"
+  },
+  "confirmedPassportId": "passport.global-payroll-harmonisation"
+}

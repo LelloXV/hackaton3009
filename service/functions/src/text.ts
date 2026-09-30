@@ -1,11 +1,11 @@
-// Text helpers: hashing, chunking, keyword extraction.
+// Text helpers: hashing, chunking, keywords, claims, dates.
 import { createHash } from "node:crypto";
 
 const STOPWORDS = new Set([
   "the", "and", "for", "are", "with", "that", "this", "from", "how", "what", "who", "when",
   "which", "does", "our", "your", "you", "can", "should", "about", "into", "per", "has",
   "have", "was", "were", "been", "will", "not", "but", "all", "any", "its", "his", "her",
-  "they", "them", "their", "there", "then", "than", "also", "only", "use", "used",
+  "they", "them", "their", "there", "then", "than", "also", "only", "use", "used", "is",
 ]);
 
 export function sha256(text: string): string {
@@ -43,11 +43,37 @@ export function chunkText(text: string, maxChars = 800): string[] {
   return chunks;
 }
 
+export function sentences(text: string): string[] {
+  return text
+    .split(/(?<=[.!?])\s+|\n+/)
+    .map((s) => s.trim())
+    .filter(Boolean);
+}
+
+const MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+const DATE = new RegExp(`\\b(\\d{1,2})\\s(${MONTHS.join("|")})\\s(\\d{4})\\b`, "g");
+const PERCENT = /(\d+(?:[.,]\d+)?)\s?%/g;
+
 /**
- * Pull the key figure out of a passage (payroll answers usually hinge on a percentage).
- * Used to detect when two sources disagree. Swap for an LLM extraction later if needed.
+ * Key figures in a sentence (full dates like "1 April 2027" and percentages).
+ * Used to detect when sources disagree. Swap for an LLM extraction later if needed.
  */
-export function extractClaim(text: string): string | null {
-  const match = text.match(/(\d+(?:[.,]\d+)?)\s?%/);
-  return match ? `${match[1].replace(",", ".")}%` : null;
+export function extractClaims(sentence: string): string[] {
+  const dates = [...sentence.matchAll(DATE)].map((m) => `${Number(m[1])} ${m[2]} ${m[3]}`);
+  const percents = [...sentence.matchAll(PERCENT)].map((m) => `${m[1].replace(",", ".")}%`);
+  return [...dates, ...percents];
+}
+
+const SHORT_MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+/** "12 Sep 2026" (UTC, independent of the server locale). */
+export function formatDate(iso: string): string {
+  const d = new Date(iso);
+  return `${d.getUTCDate()} ${SHORT_MONTHS[d.getUTCMonth()]} ${d.getUTCFullYear()}`;
+}
+
+export const DAY = 24 * 60 * 60 * 1000;
+
+export function daysBetween(fromIso: string, now: Date): number {
+  return Math.max(0, Math.floor((now.getTime() - new Date(fromIso).getTime()) / DAY));
 }
