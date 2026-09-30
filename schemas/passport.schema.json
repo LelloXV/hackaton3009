@@ -1,20 +1,37 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Knowledge Passport",
-  "description": "Shared SD Worx hackathon passport contract, version 1.0.0.",
+  "description": "Shared SD Worx hackathon passport contract, version 1.1.0.",
   "type": "object",
   "additionalProperties": false,
   "properties": {
     "schemaVersion": {
-      "const": "1.0.0"
+      "const": "1.1.0"
     },
     "id": {
       "$ref": "#/$defs/identifier"
+    },
+    "reference": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 50
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "title": {
       "type": "string",
       "minLength": 1,
       "maxLength": 500
+    },
+    "description": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 1000
     },
     "issuer": {
       "$ref": "#/$defs/actor"
@@ -34,6 +51,16 @@
     },
     "updatedAt": {
       "$ref": "#/$defs/timestamp"
+    },
+    "updatedBy": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/actor"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "lastVerifiedAt": {
       "anyOf": [
@@ -75,6 +102,16 @@
         "modules"
       ]
     },
+    "departments": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 200
+      },
+      "uniqueItems": true,
+      "maxItems": 50
+    },
     "sourceType": {
       "$ref": "#/$defs/sourceType"
     },
@@ -111,24 +148,53 @@
         "$ref": "#/$defs/linkedSource"
       },
       "uniqueItems": true
+    },
+    "openIssues": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/openIssue"
+      },
+      "uniqueItems": true
+    },
+    "updates": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/update"
+      },
+      "uniqueItems": true,
+      "minItems": 1
+    },
+    "related": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/relatedPassport"
+      },
+      "uniqueItems": true
     }
   },
   "required": [
     "schemaVersion",
     "id",
+    "reference",
     "title",
+    "description",
     "issuer",
     "owner",
     "createdAt",
     "updatedAt",
+    "updatedBy",
     "lastVerifiedAt",
     "expiresAt",
     "visa",
+    "departments",
     "sourceType",
     "source",
     "version",
     "stamps",
-    "linkedSources"
+    "linkedSources",
+    "openIssues",
+    "updates",
+    "related"
   ],
   "$defs": {
     "identifier": {
@@ -174,6 +240,7 @@
     },
     "sourceType": {
       "enum": [
+        "project",
         "document",
         "chat",
         "email",
@@ -416,6 +483,48 @@
         "sourceType": {
           "$ref": "#/$defs/sourceType"
         },
+        "app": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "version": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 50
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "updatedAt": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/timestamp"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "countries": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Z]{2}$"
+          },
+          "uniqueItems": true
+        },
         "uri": {
           "$ref": "#/$defs/uri"
         },
@@ -432,7 +541,91 @@
         "id",
         "title",
         "sourceType",
+        "app",
+        "version",
+        "updatedAt",
+        "countries",
         "uri",
+        "relation"
+      ]
+    },
+    "openIssue": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        },
+        "severity": {
+          "enum": [
+            "minor",
+            "major"
+          ]
+        },
+        "openedAt": {
+          "$ref": "#/$defs/timestamp"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "severity",
+        "openedAt"
+      ]
+    },
+    "update": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "version": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "at": {
+          "$ref": "#/$defs/timestamp"
+        },
+        "actor": {
+          "$ref": "#/$defs/actor"
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        }
+      },
+      "required": [
+        "version",
+        "at",
+        "actor",
+        "summary"
+      ]
+    },
+    "relatedPassport": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "passportId": {
+          "$ref": "#/$defs/identifier"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        },
+        "relation": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        }
+      },
+      "required": [
+        "passportId",
+        "title",
         "relation"
       ]
     }

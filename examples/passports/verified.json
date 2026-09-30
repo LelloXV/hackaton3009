@@ -1,7 +1,9 @@
 {
-  "schemaVersion": "1.0.0",
+  "schemaVersion": "1.1.0",
   "id": "passport.be.payroll",
+  "reference": null,
   "title": "Belgian payroll procedure (fictional demo)",
+  "description": "Fictional demo passport for the contract examples.",
   "issuer": {
     "id": "demo.importer",
     "name": "Demo Importer",
@@ -14,6 +16,11 @@
   },
   "createdAt": "2026-09-01T09:00:00Z",
   "updatedAt": "2026-09-29T09:00:00Z",
+  "updatedBy": {
+    "id": "demo.payroll-owner",
+    "name": "Demo Payroll Owner",
+    "type": "person"
+  },
   "lastVerifiedAt": "2026-09-30T09:00:00Z",
   "expiresAt": "2026-10-30T09:00:00Z",
   "visa": {
@@ -34,6 +41,9 @@
       ]
     }
   },
+  "departments": [
+    "Pay \u00b7 Demo Payroll"
+  ],
   "sourceType": "document",
   "source": {
     "id": "doc.be.payroll",
@@ -55,5 +65,19 @@
       "relatedStampIds": []
     }
   ],
-  "linkedSources": []
+  "linkedSources": [],
+  "openIssues": [],
+  "updates": [
+    {
+      "version": 2,
+      "at": "2026-09-29T09:00:00Z",
+      "actor": {
+        "id": "demo.importer",
+        "name": "Demo Importer",
+        "type": "system"
+      },
+      "summary": "Current version imported."
+    }
+  ],
+  "related": []
 }

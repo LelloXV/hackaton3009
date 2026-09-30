@@ -1,7 +1,9 @@
 {
-  "schemaVersion": "1.0.0",
+  "schemaVersion": "1.1.0",
   "id": "passport.unknown",
+  "reference": null,
   "title": "Unowned imported note (fictional demo)",
+  "description": "Fictional demo passport for the contract examples.",
   "issuer": {
     "id": "demo.importer",
     "name": "Demo Importer",
@@ -10,6 +12,7 @@
   "owner": null,
   "createdAt": "2026-09-01T09:00:00Z",
   "updatedAt": "2026-09-29T09:00:00Z",
+  "updatedBy": null,
   "lastVerifiedAt": null,
   "expiresAt": null,
   "visa": {
@@ -26,6 +29,7 @@
       "values": []
     }
   },
+  "departments": [],
   "sourceType": "chat",
   "source": {
     "id": "chat.unknown",
@@ -33,5 +37,19 @@
   },
   "version": 1,
   "stamps": [],
-  "linkedSources": []
+  "linkedSources": [],
+  "openIssues": [],
+  "updates": [
+    {
+      "version": 1,
+      "at": "2026-09-29T09:00:00Z",
+      "actor": {
+        "id": "demo.importer",
+        "name": "Demo Importer",
+        "type": "system"
+      },
+      "summary": "Current version imported."
+    }
+  ],
+  "related": []
 }

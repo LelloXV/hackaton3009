@@ -1,0 +1,71 @@
+[
+  {
+    "id": "team.transformation-office",
+    "name": "Transformation Office",
+    "lead": {
+      "id": "person.jane-desmet",
+      "name": "Jane De Smet",
+      "email": "jane.desmet@example.com"
+    },
+    "members": [
+      {
+        "id": "person.jane-desmet",
+        "name": "Jane De Smet",
+        "email": "jane.desmet@example.com"
+      },
+      {
+        "id": "person.marc-dubois",
+        "name": "Marc Dubois",
+        "email": "marc.dubois@example.com"
+      }
+    ],
+    "expertise": [
+      "Programme lead, Global Payroll Harmonisation",
+      "Payroll process design"
+    ]
+  },
+  {
+    "id": "team.payroll-ops-be",
+    "name": "Payroll Operations BE",
+    "lead": {
+      "id": "person.lotte-maes",
+      "name": "Lotte Maes",
+      "email": "lotte.maes@example.com"
+    },
+    "members": [
+      {
+        "id": "person.lotte-maes",
+        "name": "Lotte Maes",
+        "email": "lotte.maes@example.com"
+      },
+      {
+        "id": "person.tom-peeters",
+        "name": "Tom Peeters",
+        "email": "tom.peeters@example.com"
+      }
+    ],
+    "expertise": [
+      "Belgian payroll",
+      "Go-live and cut-over"
+    ]
+  },
+  {
+    "id": "team.payroll-ops",
+    "name": "Payroll Operations",
+    "lead": {
+      "id": "person.anouk-devries",
+      "name": "Anouk de Vries",
+      "email": "anouk.devries@example.com"
+    },
+    "members": [
+      {
+        "id": "person.anouk-devries",
+        "name": "Anouk de Vries",
+        "email": "anouk.devries@example.com"
+      }
+    ],
+    "expertise": [
+      "Payroll operations"
+    ]
+  }
+]

@@ -1,65 +1,149 @@
 // Single place for all data access. Screens only import from here.
 //
-// Shapes are exactly the backend's (service/functions/src/types.ts):
-//   askQuestion(question, { country, client }) -> AskResult    (callable "ask")
-//   getPassport(passportId)                    -> Passport     (Firestore "passports/{id}")
-//   verifySource(passportId)                   -> { passportId, lastVerifiedAt }  (callable "verifySource")
+// Shapes are exactly the backend's (service/functions/src/types.ts, contract
+// docs/passport-contract.md v1.1.0):
+//   signIn(demoUser)                    -> user with name and teams (callable "whoAmI")
+//   askQuestion(question, { country })  -> AskResult                (callable "ask")
+//   getPassport(passportId)             -> PassportView             (callable "getPassport")
+//   confirmStillValid(passportId)       -> PassportView             (callable "confirmStillValid")
+//   askPassportAI(passportId, message)  -> { answer, citations }    (callable "askPassportAI")
 //
-// To use the real backend: set USE_MOCK to false and fill in the Firebase calls
-// below (needs the `firebase` package and the project config; see the notes there).
+// Demo mode (VITE_USE_MOCK not "false") uses ./data/generated, which the backend
+// exports from its own code, so both modes return the same shapes.
 
-import { demoUsers, mockAskResults, mockPassports } from './data/mockData'
+import { signInWithEmailAndPassword, signOut as firebaseSignOut } from 'firebase/auth'
+import { httpsCallable } from 'firebase/functions'
+import { afterConfirm, before, demoUsers, meta, mockAiAnswers, teams } from './data/mockData'
+import { auth, functions, useMock } from './firebase'
 
-const USE_MOCK = true
+export { useMock }
 
-// In-memory copy so verifying a source is visible during the demo.
-const passports = structuredClone(mockPassports)
-const verifiedInDemo = new Set()
+// ---------- Real backend ----------
+
+// Turn Firebase errors into short, safe messages for the screen.
+function friendlyError(err) {
+  const code = err?.code ?? ''
+  if (code.includes('invalid-credential') || code.includes('wrong-password') || code.includes('user-not-found')) {
+    return 'Sign-in failed: wrong email or password.'
+  }
+  if (code.includes('unauthenticated')) return 'Please sign in again.'
+  if (code.includes('permission-denied')) return err.message || 'You are not allowed to do this.'
+  if (code.includes('invalid-argument')) return 'Please check your input (questions need at least 5 characters).'
+  if (code.includes('unavailable') || code.includes('network')) return 'The backend is not reachable. Is it running?'
+  return err?.message || 'Something went wrong. Please try again.'
+}
+
+async function call(name, data) {
+  try {
+    const result = await httpsCallable(functions, name)(data)
+    return result.data
+  } catch (err) {
+    throw new Error(friendlyError(err))
+  }
+}
+
+// ---------- Demo mode ----------
+
+// Has the demo passport been confirmed in this session?
+let confirmed = false
+const scenario = () => (confirmed ? afterConfirm : before)
+let mockUser = null
+
+// Same rule as the backend (service/functions/src/access.ts): any member of the
+// owning team may update and confirm the passport.
+function mockCanEdit(passport, user) {
+  if (!passport.owner || !user) return false
+  const email = user.email.toLowerCase()
+  const team = teams.find((t) => t.id === passport.owner.id)
+  if (team) return team.members.some((m) => m.email.toLowerCase() === email)
+  return passport.owner.id === user.id
+}
+
+const withCanEdit = (view) => ({ ...view, canEdit: mockCanEdit(view.passport, mockUser) })
+
+// ---------- API used by the screens ----------
 
 export async function getUsers() {
   return demoUsers
 }
 
-export async function askQuestion(question, { country, client } = {}) {
-  if (USE_MOCK) {
-    // The mock ignores the question text: it returns the backend's answer to the
-    // demo question for this country, taking into account sources verified so far.
-    const byCountry = mockAskResults[country] ?? mockAskResults.BE
-    const key = [...verifiedInDemo].sort().join(',')
-    return structuredClone(byCountry[key] ?? byCountry[''])
+// Signs in as one of the demo accounts. With the backend, this is a real Firebase
+// sign-in (the backend checks the user on every call); the demo password comes from
+// .env.local, never from the code.
+export async function signIn(demoUser) {
+  if (useMock) {
+    mockUser = demoUser
+    const myTeams = teams.filter((t) => t.members.some((m) => m.email === demoUser.email))
+    return { ...demoUser, teams: myTeams.map((t) => ({ id: t.id, name: t.name })) }
   }
-  // Real call (backend region europe-west1):
-  //   const ask = httpsCallable(functions, 'ask')
-  //   const { data } = await ask({ question, country, client })
-  //   return data
-  throw new Error(`Backend not connected yet (question: ${question}, ${country ?? ''} ${client ?? ''})`)
+  const password = import.meta.env.VITE_DEMO_PASSWORD
+  if (!password) throw new Error('VITE_DEMO_PASSWORD is missing in frontend/.env.local.')
+  try {
+    await signInWithEmailAndPassword(auth, demoUser.email, password)
+  } catch (err) {
+    throw new Error(friendlyError(err))
+  }
+  const me = await call('whoAmI', {})
+  return { ...demoUser, name: me.name, teams: me.teams }
+}
+
+export async function signOut() {
+  mockUser = null
+  if (!useMock) await firebaseSignOut(auth)
+}
+
+export async function askQuestion(question, { country } = {}) {
+  if (useMock) {
+    // Demo mode ignores the question text: it returns the backend's answer to the
+    // demo question for this country.
+    await new Promise((resolve) => setTimeout(resolve, 300))
+    const result = structuredClone(scenario().ask[country] ?? scenario().ask[meta.question.country])
+    const mark = (items) => items.map((i) => ({ ...i, canEdit: mockCanEdit(i.passport, mockUser) }))
+    return { ...result, question, results: mark(result.results), archived: mark(result.archived) }
+  }
+  return call('ask', { question, country })
 }
 
 export async function getPassport(passportId) {
-  if (USE_MOCK) {
-    return structuredClone(passports.find((p) => p.id === passportId) ?? null)
+  if (useMock) {
+    const view = scenario().passports[passportId]
+    return view ? withCanEdit(structuredClone(view)) : null
   }
-  // Real call: signed-in users may read passports directly (firestore.rules):
-  //   const snap = await getDoc(doc(db, 'passports', passportId))
-  //   return snap.exists() ? snap.data() : null
-  throw new Error('Backend not connected yet')
+  return call('getPassport', { passportId })
 }
 
-// Only the owner can verify: the backend checks that the signed-in user's
-// verified email equals owner.contact. The mock does the same check.
-export async function verifySource(passportId, user) {
-  if (USE_MOCK) {
-    const passport = passports.find((p) => p.id === passportId)
-    if (!passport || passport.owner?.contact.toLowerCase() !== user.email.toLowerCase()) {
-      throw new Error("You can't verify this source.")
+export async function confirmStillValid(passportId) {
+  if (useMock) {
+    const view = scenario().passports[passportId]
+    if (!view || !mockCanEdit(view.passport, mockUser)) throw new Error("You can't confirm this passport.")
+    if (view.archived) throw new Error("Archived passports can't be confirmed.")
+    if (passportId !== meta.confirmedPassportId) {
+      throw new Error('Demo mode: only the Global Payroll Harmonisation passport can be confirmed.')
     }
-    passport.lastVerifiedAt = new Date().toISOString()
-    verifiedInDemo.add(passportId)
-    return { passportId, lastVerifiedAt: passport.lastVerifiedAt }
+    confirmed = true
+    return getPassport(passportId)
   }
-  // Real call:
-  //   const verify = httpsCallable(functions, 'verifySource')
-  //   const { data } = await verify({ passportId })
-  //   return data
-  throw new Error('Backend not connected yet')
+  return call('confirmStillValid', { passportId })
+}
+
+// The backend answers with Claude using only this passport's sources; the API key
+// stays on the backend as a Firebase secret, never in the frontend.
+export async function askPassportAI(passportId, message) {
+  if (useMock) {
+    const { passport } = scenario().passports[passportId]
+    const text = message.toLowerCase()
+    const match = (mockAiAnswers[passportId] ?? []).find((a) => a.keywords.some((k) => text.includes(k)))
+    await new Promise((resolve) => setTimeout(resolve, 600))
+    if (!match) {
+      return {
+        answer: 'Demo mode has example answers for "Global Payroll Harmonisation" only: try asking about the go-live date, the owner, the countries or open issues.',
+        citations: [],
+      }
+    }
+    return {
+      answer: match.answer,
+      citations: match.citations.map((id) => ({ id, title: passport.linkedSources.find((s) => s.id === id)?.title ?? id })),
+    }
+  }
+  return call('askPassportAI', { passportId, message })
 }

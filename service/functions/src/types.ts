@@ -1,76 +1,217 @@
-// Shared types for the trust passport backend.
+// Shared types for the knowledge passport backend.
+// Passports follow docs/passport-contract.md (v1.1.0); keep the two in sync.
 
-export type SourceType = "policy" | "procedure" | "email" | "teams_chat";
-export type Module = "HR" | "Pay" | "Time";
+export type ActorType = "person" | "team" | "system";
 
-export interface Owner {
+export interface Actor {
+  id: string;
   name: string;
-  team: string;
-  contact: string; // email, used to authorise the owner to verify the source
+  type: ActorType;
 }
 
-export interface Scope {
-  countries: string[]; // ISO codes like "BE", or "ALL"
-  clients: string[]; // empty = applies to every client
-  modules: Module[];
+export type ScopeMode = "listed" | "all" | "unknown";
+
+export interface ScopeDimension<T extends string = string> {
+  mode: ScopeMode;
+  values: T[]; // non-empty only when mode is "listed"
 }
 
-/** The passport: metadata that tells a reader whether a source can be trusted. */
-export interface Passport {
+export type Module = "hr" | "pay" | "time";
+
+export interface Visa {
+  countries: ScopeDimension; // ISO 3166-1 alpha-2, e.g. "BE"
+  clients: ScopeDimension; // stable client IDs
+  modules: ScopeDimension<Module>;
+}
+
+export type SourceType =
+  | "project"
+  | "document"
+  | "chat"
+  | "email"
+  | "business_record"
+  | "expert_note"
+  | "generated_answer";
+
+export type StampType = "verified" | "conflict" | "conflict_resolved" | "revoked" | "note";
+
+export interface Stamp {
+  id: string;
+  type: StampType;
+  at: string;
+  actor: Actor;
+  version: number;
+  note: string;
+  relatedStampIds: string[];
+}
+
+export type Relation = "supports" | "contradicts" | "derived_from" | "supersedes";
+
+export interface LinkedSource {
   id: string;
   title: string;
   sourceType: SourceType;
-  owner: Owner | null;
-  lastEditedAt: string; // ISO date
-  lastVerifiedAt: string | null; // ISO date; "edited" is NOT "verified"
-  reviewIntervalDays: number; // verification expires after this
-  scope: Scope;
-  sha256: string; // fingerprint of the content (integrity + duplicate detection)
-  ingestedAt: string;
-  ingestedBy: string;
+  app: string | null; // tool the source lives in, e.g. "SharePoint"
+  version: string | null;
+  updatedAt: string | null;
+  countries: string[]; // countries this source covers ([] = not stated)
+  uri: string;
+  relation: Relation;
 }
 
-export interface Chunk {
-  passportId: string;
-  position: number;
-  text: string;
-  terms: string[]; // normalised keywords, used for retrieval
+export interface OpenIssue {
+  id: string;
+  title: string;
+  severity: "minor" | "major";
+  openedAt: string;
 }
 
-export type VerificationStatus =
-  | "verified"
-  | "expired"
-  | "changed_since_verification"
-  | "unverified";
+export interface PassportUpdate {
+  version: number;
+  at: string;
+  actor: Actor;
+  summary: string; // what changed compared to the previous version
+}
 
-export interface ScoredSource {
+export interface RelatedPassport {
   passportId: string;
   title: string;
+  relation: string;
+}
+
+/** The passport of a project: who owns it, what it applies to and how it can be trusted. */
+export interface Passport {
+  schemaVersion: "1.1.0";
+  id: string;
+  reference: string | null;
+  title: string;
+  description: string;
+  issuer: Actor;
+  owner: Actor | null; // a team, so work continues when people leave
+  createdAt: string;
+  updatedAt: string;
+  updatedBy: Actor | null;
+  lastVerifiedAt: string | null;
+  expiresAt: string | null; // relevant until; afterwards the passport is archived
+  visa: Visa;
+  departments: string[];
   sourceType: SourceType;
-  owner: Owner | null;
-  verificationStatus: VerificationStatus;
+  source: { id: string; uri: string };
+  version: number;
+  stamps: Stamp[];
+  linkedSources: LinkedSource[];
+  openIssues: OpenIssue[];
+  updates: PassportUpdate[];
+  related: RelatedPassport[];
+}
+
+/** Team directory entry (application data, not part of the passport). */
+export interface Team {
+  id: string;
+  name: string;
+  lead: { id: string; name: string; email: string };
+  members: { id: string; name: string; email: string }[];
+  expertise: string[];
+}
+
+/** Searchable piece of a linked source's text. */
+export interface Chunk {
+  passportId: string;
+  linkedSourceId: string;
+  position: number;
+  text: string;
+  terms: string[];
+}
+
+export type CriterionStatus = "ok" | "partial" | "stale" | "missing" | "conflict";
+export type Level = "high" | "medium" | "low";
+
+export interface Criterion {
+  id:
+    | "sources_agree"
+    | "last_updated"
+    | "owner_unit"
+    | "scope_coverage"
+    | "owner_review"
+    | "department_defined"
+    | "open_issues";
+  label: string;
+  maxPoints: number;
+  points: number;
+  status: CriterionStatus;
+  details: string;
+}
+
+/** Computed on request, never stored in the passport. */
+export interface Trust {
+  score: number; // 0-100, sum of criteria points
+  level: Level;
+  criteria: Criterion[];
+}
+
+export interface PassportView {
+  passport: Passport;
+  trust: Trust;
+  archived: boolean;
+  canEdit: boolean; // the signed-in user is in the owning team (the backend still checks on every change)
+}
+
+export interface Me {
+  uid: string;
+  name: string;
+  email: string;
+  emailVerified: boolean;
+  teams: { id: string; name: string }[];
+}
+
+export interface Contact {
+  id: string;
+  name: string;
+  unit: string;
+  contact: string;
+  expertise: string[];
+}
+
+export interface AskResultItem extends PassportView {
+  ref: number; // [ref] in the answer text
+  passportId: string;
+  excerpt: string;
   inScope: boolean;
   scopeNote: string | null;
-  score: number; // 0-100
-  breakdown: Record<string, number>; // points per factor, so the score is explainable
-  reasons: string[]; // human-readable "+ / -" reasons
+}
+
+export interface Evidence {
+  passportId: string; // passport to open for this source
+  passportIds: string[]; // every matching passport that links this source
+  linkedSourceId: string;
+  title: string;
+  app: string | null;
+  date: string | null;
   excerpt: string;
-  claim: string | null; // key figure found in the excerpt (e.g. "92%")
 }
 
 export interface Conflict {
+  id: string;
   topic: string;
   leadingClaim: string;
-  positions: { claim: string; passportIds: string[]; support: number }[]; // support = combined trust score
-  resolveWith: Owner | null;
+  positions: { claim: string; support: number; evidence: Evidence[] }[];
+  difference: string;
+  resolveWith: (Contact & { reason: string }) | null;
 }
 
 export interface AskResult {
+  question: string;
+  context: { country: string | null; client: string | null };
   answer: string | null;
-  confidence: "high" | "medium" | "low" | "none";
-  topSourceId: string | null;
-  sources: ScoredSource[];
+  confidence: Level | "none";
+  results: AskResultItem[]; // active passports, best first
+  archived: AskResultItem[]; // matched but archived: shown, never used for the answer
   conflicts: Conflict[];
   uncertainty: string[];
-  whoToContact: Owner | null;
+  whoToContact: Contact | null;
+}
+
+export interface AiAnswer {
+  answer: string;
+  citations: { id: string; title: string }[]; // linked sources the answer is based on
 }

@@ -1,52 +1,39 @@
-// Firestore access: building and storing passports and chunks (Admin SDK only).
+// Firestore access: passports, source chunks and the team directory (Admin SDK only).
 import { Firestore } from "firebase-admin/firestore";
-import { IngestInput } from "./schemas";
-import { chunkText, sha256, terms } from "./text";
-import { Chunk, Passport } from "./types";
+import { chunkText, terms } from "./text";
+import { Chunk, Passport, Team } from "./types";
 
 export const PASSPORTS = "passports";
 export const CHUNKS = "chunks";
+export const TEAMS = "teams";
 
-export class DuplicateError extends Error {
-  constructor(public existingId: string) {
-    super("duplicate");
-  }
+export function buildChunks(passport: Passport, sourceTexts: Record<string, string>): Chunk[] {
+  return passport.linkedSources.flatMap((s) =>
+    chunkText(sourceTexts[s.id] ?? "").map((text, position) => ({
+      passportId: passport.id,
+      linkedSourceId: s.id,
+      position,
+      text,
+      terms: terms(text),
+    })),
+  );
 }
 
-/** Build the passport + chunks for a source and write them atomically. */
-export async function storeSource(db: Firestore, input: IngestInput, ingestedBy: string, id?: string): Promise<Passport> {
-  const hash = sha256(input.text);
-
-  // Detect duplicates: identical content already ingested under another passport.
-  const dup = await db.collection(PASSPORTS).where("sha256", "==", hash).limit(1).get();
-  if (!dup.empty && dup.docs[0].id !== id) throw new DuplicateError(dup.docs[0].id);
-
-  const ref = id ? db.collection(PASSPORTS).doc(id) : db.collection(PASSPORTS).doc();
-  const passport: Passport = {
-    id: ref.id,
-    title: input.title,
-    sourceType: input.sourceType,
-    owner: input.owner,
-    lastEditedAt: input.lastEditedAt,
-    lastVerifiedAt: input.lastVerifiedAt,
-    reviewIntervalDays: input.reviewIntervalDays,
-    scope: input.scope,
-    sha256: hash,
-    ingestedAt: new Date().toISOString(),
-    ingestedBy,
-  };
+/** Write a passport and replace its chunks atomically. */
+export async function storePassport(db: Firestore, passport: Passport, sourceTexts: Record<string, string>): Promise<void> {
+  const unknown = Object.keys(sourceTexts).filter((id) => !passport.linkedSources.some((s) => s.id === id));
+  if (unknown.length > 0) throw new Error(`Texts for unknown linked sources: ${unknown.join(", ")}`);
 
   const batch = db.batch();
-  // Replace old chunks if the source is re-ingested.
-  const old = await db.collection(CHUNKS).where("passportId", "==", ref.id).get();
+  const old = await db.collection(CHUNKS).where("passportId", "==", passport.id).get();
   old.docs.forEach((d) => batch.delete(d.ref));
-  batch.set(ref, passport);
-  chunkText(input.text).forEach((text, position) => {
-    const chunk: Chunk = { passportId: ref.id, position, text, terms: terms(text) };
-    batch.set(db.collection(CHUNKS).doc(), chunk);
-  });
+  batch.set(db.collection(PASSPORTS).doc(passport.id), passport);
+  for (const chunk of buildChunks(passport, sourceTexts)) batch.set(db.collection(CHUNKS).doc(), chunk);
   await batch.commit();
-  return passport;
+}
+
+export async function storeTeam(db: Firestore, team: Team): Promise<void> {
+  await db.collection(TEAMS).doc(team.id).set(team);
 }
 
 /** Keyword retrieval. Firestore allows at most 30 values in array-contains-any. */
@@ -54,13 +41,32 @@ export async function retrieve(db: Firestore, question: string): Promise<{ passp
   const qTerms = terms(question).slice(0, 30);
   if (qTerms.length === 0) return { passports: [], chunks: [] };
 
-  const snap = await db.collection(CHUNKS).where("terms", "array-contains-any", qTerms).limit(100).get();
-  const chunks = snap.docs.map((d) => d.data() as Chunk);
-  const ids = [...new Set(chunks.map((c) => c.passportId))];
+  const snap = await db.collection(CHUNKS).where("terms", "array-contains-any", qTerms).limit(200).get();
+  const ids = [...new Set(snap.docs.map((d) => (d.data() as Chunk).passportId))];
   if (ids.length === 0) return { passports: [], chunks: [] };
 
-  const refs = ids.map((id) => db.collection(PASSPORTS).doc(id));
-  const docs = await db.getAll(...refs);
+  const docs = await db.getAll(...ids.map((id) => db.collection(PASSPORTS).doc(id)));
   const passports = docs.filter((d) => d.exists).map((d) => d.data() as Passport);
+  // All chunks of the matching passports: conflicts and excerpts look at whole sources.
+  const chunks = await chunksFor(db, ids);
   return { passports, chunks };
+}
+
+export async function chunksFor(db: Firestore, passportIds: string[]): Promise<Chunk[]> {
+  const result: Chunk[] = [];
+  for (let i = 0; i < passportIds.length; i += 30) {
+    const snap = await db.collection(CHUNKS).where("passportId", "in", passportIds.slice(i, i + 30)).get();
+    result.push(...snap.docs.map((d) => d.data() as Chunk));
+  }
+  return result;
+}
+
+export async function getPassport(db: Firestore, id: string): Promise<Passport | null> {
+  const snap = await db.collection(PASSPORTS).doc(id).get();
+  return snap.exists ? (snap.data() as Passport) : null;
+}
+
+export async function getTeams(db: Firestore): Promise<Team[]> {
+  const snap = await db.collection(TEAMS).get();
+  return snap.docs.map((d) => d.data() as Team);
 }

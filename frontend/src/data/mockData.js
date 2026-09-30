@@ -1,28 +1,65 @@
-// Fictional demo data. Nothing here is real payroll advice.
+// Fictional demo data: fictional projects and people, not real payroll advice.
 //
-// mockAskResults.json and mockPassports.json are the EXACT output of the backend
-// (service/functions/src/scoring.ts on service/functions/src/seedData.ts, with
-// "now" = 2026-09-30T12:00:00Z), so they have the same shape as the real API.
-// Do not edit them by hand: regenerate them if the backend changes.
-//
-// mockAskResults[country][verifiedIds] is the backend's answer to the demo
-// question for that country, where verifiedIds lists the sources verified during
-// the demo (comma-separated, "" = none yet).
+// ./generated/*.json is produced by the backend (`npm run export-mocks` in
+// service/functions) from its real scoring code and demo data, so mock mode shows
+// exactly what the backend returns. Do not edit those files by hand.
+//   before.json        answers (BE, NL) and passports before any confirmation
+//   afterConfirm.json  the same after Jane De Smet confirms Global Payroll Harmonisation
+//   teams.json         team directory (who may confirm which passport)
 
-import mockAskResults from './mockAskResults.json'
-import mockPassports from './mockPassports.json'
+import before from './generated/before.json'
+import afterConfirm from './generated/afterConfirm.json'
+import teams from './generated/teams.json'
+import meta from './generated/meta.json'
 
-export { mockAskResults, mockPassports }
+export { before, afterConfirm, teams, meta }
 
-// Same as DEMO_QUESTION in service/functions/src/seedData.ts.
-export const demoQuestion = {
-  question: 'How is double holiday pay calculated for a part-time employee?',
-  country: 'BE',
-}
-
-// Demo accounts. Real sign-in will come from Firebase Auth; the backend lets a
-// user verify a source when their email equals the source's owner.contact.
+// Demo accounts. Real sign-in will come from Firebase Auth (email identifies the team member).
 export const demoUsers = [
-  { uid: 'demo-sofie', name: 'Sofie Van Damme', email: 'sofie.vandamme@example.com', role: 'consultant', description: 'Payroll consultant: asks questions for clients' },
-  { uid: 'demo-tom', name: 'Tom Peeters', email: 'tom.peeters@example.com', role: 'owner', description: 'Document owner: can confirm their own sources' },
+  {
+    id: 'person.sofie-vandamme',
+    name: 'Sofie Van Damme',
+    email: 'sofie.vandamme@example.com',
+    role: 'consultant',
+    description: 'Payroll consultant: asks questions for clients',
+  },
+  {
+    id: 'person.jane-desmet',
+    name: 'Jane De Smet',
+    email: 'jane.desmet@example.com',
+    role: 'owner',
+    description: 'Member of the Transformation Office, which owns Global Payroll Harmonisation',
+  },
 ]
+
+// Example "Ask AI" answers, in the shape the backend returns ({ answer, citations }).
+// With an API key the backend writes answers like these with Claude; the first entry
+// whose keywords match the question is used. `citations` are linkedSources ids.
+export const mockAiAnswers = {
+  'passport.global-payroll-harmonisation': [
+    {
+      keywords: ['go-live', 'go live', 'date', 'when', 'deadline'],
+      answer:
+        'The sources disagree. The project plan (v1.4, 3 Sep 2026) says go-live on 1 January 2027 for all countries. A newer Teams thread (18 Sep 2026) says Belgium and the Netherlands move to 1 April 2027 because of an extra parallel run. The plan has not been updated yet, so check with Jane De Smet before giving a date to a client.',
+      citations: ['doc.gph.project-plan', 'chat.gph.teams-go-live'],
+    },
+    {
+      keywords: ['owner', 'who', 'responsible', 'contact'],
+      answer:
+        'The passport is owned by the Transformation Office; any member of that team can update and confirm it. Jane De Smet made the last update on 12 Sep 2026 and leads the team.',
+      citations: ['doc.gph.change-log'],
+    },
+    {
+      keywords: ['country', 'countries', 'scope', 'applies'],
+      answer:
+        'The project applies to 17 countries. The country readiness checklist covers 15 of them; Denmark and Finland have not started their readiness checks.',
+      citations: ['doc.gph.country-checklist', 'doc.gph.scope-file-2024'],
+    },
+    {
+      keywords: ['hr', 'issue', 'risk', 'missing'],
+      answer:
+        'There is one open issue: the impact on the HR module has not been analysed yet. The steering committee raised it as a risk in August 2026.',
+      citations: ['email.gph.steering-committee'],
+    },
+  ],
+}

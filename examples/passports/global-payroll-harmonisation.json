@@ -1,0 +1,305 @@
+{
+  "schemaVersion": "1.1.0",
+  "id": "passport.global-payroll-harmonisation",
+  "reference": "#241",
+  "title": "Global Payroll Harmonisation",
+  "description": "Harmonise payroll processes and configurations across key countries to improve efficiency, compliance and data quality.",
+  "issuer": {
+    "id": "person.jane-desmet",
+    "name": "Jane De Smet",
+    "type": "person"
+  },
+  "owner": {
+    "id": "team.transformation-office",
+    "name": "Transformation Office",
+    "type": "team"
+  },
+  "createdAt": "2025-11-03T09:00:00Z",
+  "updatedAt": "2026-09-12T14:20:00Z",
+  "updatedBy": {
+    "id": "person.jane-desmet",
+    "name": "Jane De Smet",
+    "type": "person"
+  },
+  "lastVerifiedAt": null,
+  "expiresAt": "2027-06-30T17:00:00Z",
+  "visa": {
+    "countries": {
+      "mode": "listed",
+      "values": [
+        "BE",
+        "NL",
+        "FR",
+        "DE",
+        "ES",
+        "LU",
+        "AT",
+        "IT",
+        "PT",
+        "IE",
+        "PL",
+        "CZ",
+        "SK",
+        "HU",
+        "DK",
+        "SE",
+        "FI"
+      ]
+    },
+    "clients": {
+      "mode": "all",
+      "values": []
+    },
+    "modules": {
+      "mode": "listed",
+      "values": [
+        "pay",
+        "hr",
+        "time"
+      ]
+    }
+  },
+  "departments": [
+    "Pay · Payroll Operations",
+    "HR · HR Operations",
+    "Time · Workforce Management",
+    "Finance · Payroll Accounting"
+  ],
+  "sourceType": "project",
+  "source": {
+    "id": "jira.pay-241",
+    "uri": "https://jira.example.com/browse/PAY-241"
+  },
+  "version": 3,
+  "stamps": [
+    {
+      "id": "stamp.gph.verified.v1",
+      "type": "verified",
+      "at": "2025-11-10T10:00:00Z",
+      "actor": {
+        "id": "person.jane-desmet",
+        "name": "Jane De Smet",
+        "type": "person"
+      },
+      "version": 1,
+      "note": "Initial scope and plan reviewed.",
+      "relatedStampIds": []
+    },
+    {
+      "id": "stamp.gph.verified.v2",
+      "type": "verified",
+      "at": "2026-05-20T09:30:00Z",
+      "actor": {
+        "id": "person.jane-desmet",
+        "name": "Jane De Smet",
+        "type": "person"
+      },
+      "version": 2,
+      "note": "Extended scope (17 countries) reviewed.",
+      "relatedStampIds": []
+    },
+    {
+      "id": "stamp.gph.conflict.v3",
+      "type": "conflict",
+      "at": "2026-09-18T16:05:00Z",
+      "actor": {
+        "id": "system.conflict-detector",
+        "name": "Conflict Detector",
+        "type": "system"
+      },
+      "version": 3,
+      "note": "Conflicting go-live date: the project plan (v1.4) says 1 January 2027, the Teams thread of 18 Sep 2026 says 1 April 2027.",
+      "relatedStampIds": []
+    },
+    {
+      "id": "stamp.gph.note.v3",
+      "type": "note",
+      "at": "2026-09-20T08:00:00Z",
+      "actor": {
+        "id": "system.coverage-check",
+        "name": "Coverage Check",
+        "type": "system"
+      },
+      "version": 3,
+      "note": "HR module impact is not covered by any source.",
+      "relatedStampIds": []
+    }
+  ],
+  "linkedSources": [
+    {
+      "id": "doc.gph.project-plan",
+      "title": "Project plan",
+      "sourceType": "document",
+      "app": "SharePoint",
+      "version": "v1.4",
+      "updatedAt": "2026-09-03T10:00:00Z",
+      "countries": [],
+      "uri": "https://sharepoint.example.com/gph/project-plan",
+      "relation": "supports"
+    },
+    {
+      "id": "chat.gph.teams-go-live",
+      "title": "Teams thread",
+      "sourceType": "chat",
+      "app": "Microsoft Teams",
+      "version": null,
+      "updatedAt": "2026-09-18T15:40:00Z",
+      "countries": [
+        "BE",
+        "NL"
+      ],
+      "uri": "https://teams.example.com/gph/go-live",
+      "relation": "contradicts"
+    },
+    {
+      "id": "doc.gph.scope-file-2024",
+      "title": "Scope file 2024",
+      "sourceType": "business_record",
+      "app": "Excel",
+      "version": null,
+      "updatedAt": "2024-03-14T09:00:00Z",
+      "countries": [
+        "BE",
+        "NL",
+        "FR",
+        "DE",
+        "ES",
+        "LU",
+        "IT",
+        "PT",
+        "IE",
+        "SE"
+      ],
+      "uri": "https://sharepoint.example.com/gph/scope-2024.xlsx",
+      "relation": "derived_from"
+    },
+    {
+      "id": "doc.gph.change-log",
+      "title": "Change log",
+      "sourceType": "document",
+      "app": "Confluence",
+      "version": null,
+      "updatedAt": "2026-09-12T14:20:00Z",
+      "countries": [],
+      "uri": "https://confluence.example.com/gph/change-log",
+      "relation": "supports"
+    },
+    {
+      "id": "email.gph.steering-committee",
+      "title": "Steering committee minutes",
+      "sourceType": "email",
+      "app": "Outlook",
+      "version": null,
+      "updatedAt": "2026-08-28T12:00:00Z",
+      "countries": [],
+      "uri": "https://mail.example.com/gph/steering-2026-08",
+      "relation": "supports"
+    },
+    {
+      "id": "doc.gph.country-checklist",
+      "title": "Country readiness checklist",
+      "sourceType": "business_record",
+      "app": "Excel",
+      "version": "v7",
+      "updatedAt": "2026-07-15T09:00:00Z",
+      "countries": [
+        "BE",
+        "NL",
+        "FR",
+        "DE",
+        "ES",
+        "LU",
+        "AT",
+        "IT",
+        "PT",
+        "IE",
+        "PL",
+        "CZ",
+        "SK",
+        "HU",
+        "SE"
+      ],
+      "uri": "https://sharepoint.example.com/gph/country-checklist.xlsx",
+      "relation": "supports"
+    },
+    {
+      "id": "note.gph.germany-expert",
+      "title": "Germany payroll expert note",
+      "sourceType": "expert_note",
+      "app": "OneNote",
+      "version": null,
+      "updatedAt": "2026-08-02T09:00:00Z",
+      "countries": [
+        "DE"
+      ],
+      "uri": "https://onenote.example.com/gph/germany",
+      "relation": "supports"
+    },
+    {
+      "id": "doc.gph.pilot-report-2024",
+      "title": "Harmonisation pilot report 2024",
+      "sourceType": "document",
+      "app": "SharePoint",
+      "version": "v2.0",
+      "updatedAt": "2024-06-30T16:00:00Z",
+      "countries": [
+        "BE",
+        "NL"
+      ],
+      "uri": "https://sharepoint.example.com/pilot/report",
+      "relation": "supersedes"
+    }
+  ],
+  "openIssues": [
+    {
+      "id": "issue.gph.hr-impact",
+      "title": "HR module impact not covered",
+      "severity": "major",
+      "openedAt": "2026-09-20T08:00:00Z"
+    }
+  ],
+  "updates": [
+    {
+      "version": 1,
+      "at": "2025-11-03T09:00:00Z",
+      "actor": {
+        "id": "person.jane-desmet",
+        "name": "Jane De Smet",
+        "type": "person"
+      },
+      "summary": "Project started: 12 countries in scope, go-live 1 January 2027."
+    },
+    {
+      "version": 2,
+      "at": "2026-05-12T11:00:00Z",
+      "actor": {
+        "id": "person.jane-desmet",
+        "name": "Jane De Smet",
+        "type": "person"
+      },
+      "summary": "Scope extended from 12 to 17 countries (added AT, PL, CZ, SK, HU)."
+    },
+    {
+      "version": 3,
+      "at": "2026-09-12T14:20:00Z",
+      "actor": {
+        "id": "person.jane-desmet",
+        "name": "Jane De Smet",
+        "type": "person"
+      },
+      "summary": "Project plan updated to v1.4 and change log added. Go-live date unchanged (1 January 2027)."
+    }
+  ],
+  "related": [
+    {
+      "passportId": "passport.be-payroll-go-live",
+      "title": "Belgium payroll go-live readiness",
+      "relation": "Country workstream"
+    },
+    {
+      "passportId": "passport.payroll-harmonisation-pilot-2024",
+      "title": "Payroll Harmonisation Pilot 2024",
+      "relation": "Earlier pilot (replaced)"
+    }
+  ]
+}
