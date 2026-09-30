@@ -1,0 +1,73 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "passport.be.holiday-leave",
+  "title": "Holiday leave calculation – Belgium",
+  "issuer": { "id": "system.importer", "name": "Knowledge Importer", "type": "system" },
+  "owner": { "id": "person.marc-peeters", "name": "Marc Peeters", "type": "person" },
+  "createdAt": "2024-02-03T09:00:00Z",
+  "updatedAt": "2026-07-12T10:00:00Z",
+  "lastVerifiedAt": "2026-08-01T14:00:00Z",
+  "expiresAt": null,
+  "visa": {
+    "countries": { "mode": "listed", "values": ["BE"] },
+    "clients": { "mode": "all", "values": [] },
+    "modules": { "mode": "listed", "values": ["pay", "time"] }
+  },
+  "sourceType": "document",
+  "source": { "id": "doc.be.holiday-leave", "uri": "https://intranet.example.com/procedures/be-holiday-leave" },
+  "version": 3,
+  "stamps": [
+    {
+      "id": "stamp.be-holiday.verified.v1",
+      "type": "verified",
+      "at": "2024-02-03T15:00:00Z",
+      "actor": { "id": "person.marc-peeters", "name": "Marc Peeters", "type": "person" },
+      "version": 1,
+      "note": "Initial procedure reviewed by the owner.",
+      "relatedStampIds": []
+    },
+    {
+      "id": "stamp.be-holiday.verified.v2",
+      "type": "verified",
+      "at": "2025-01-15T10:00:00Z",
+      "actor": { "id": "person.marc-peeters", "name": "Marc Peeters", "type": "person" },
+      "version": 2,
+      "note": "Reviewed the monthly calculation example.",
+      "relatedStampIds": []
+    },
+    {
+      "id": "stamp.be-holiday.verified.v3",
+      "type": "verified",
+      "at": "2026-08-01T14:00:00Z",
+      "actor": { "id": "person.marc-peeters", "name": "Marc Peeters", "type": "person" },
+      "version": 3,
+      "note": "Reviewed the new pro-rata rule for new hires.",
+      "relatedStampIds": []
+    },
+    {
+      "id": "stamp.be-holiday.conflict.v3",
+      "type": "conflict",
+      "at": "2026-09-28T08:30:00Z",
+      "actor": { "id": "system.conflict-detector", "name": "Conflict Detector", "type": "system" },
+      "version": 3,
+      "note": "A Teams chat says Client Atlas SA still applies the previous rule for new hires. Owner review needed.",
+      "relatedStampIds": []
+    }
+  ],
+  "linkedSources": [
+    {
+      "id": "chat.teams.be-payroll.2026-05-15",
+      "title": "Teams: BE payroll team discussion",
+      "sourceType": "chat",
+      "uri": "https://teams.example.com/be-payroll/2026-05-15",
+      "relation": "contradicts"
+    },
+    {
+      "id": "doc.be.holiday-leave-2024-copy",
+      "title": "Holiday leave calculation – Belgium (2024 copy)",
+      "sourceType": "document",
+      "uri": "https://sharepoint.example.com/payroll/be-holiday-leave-2024",
+      "relation": "supersedes"
+    }
+  ]
+}
