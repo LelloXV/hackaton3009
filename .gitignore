@@ -14,3 +14,7 @@ serviceAccountKey.json
 .runtimeconfig.json
 node_modules
 firebase login --no-localhost
+
+# Python
+__pycache__/
+*.pyc
