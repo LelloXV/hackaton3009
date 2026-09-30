@@ -1,79 +1,65 @@
 // Single place for all data access. Screens only import from here.
-// Today every function returns mock data; later each one becomes a fetch() to the
-// backend, and the screens do not change.
 //
-// Passports follow the team contract (schemas/passport.schema.json) unchanged.
-// The shapes below that wrap them are the frontend's PROPOSAL for the backend API:
+// Shapes are exactly the backend's (service/functions/src/types.ts):
+//   askQuestion(question, { country, client }) -> AskResult    (callable "ask")
+//   getPassport(passportId)                    -> Passport     (Firestore "passports/{id}")
+//   verifySource(passportId)                   -> { passportId, lastVerifiedAt }  (callable "verifySource")
 //
-// askQuestion(question) -> {
-//   question: string,
-//   context: { country: 'BE', client: 'client.atlas', module: 'pay' },  // query scope
-//   answer: string,                  // text with inline citations like [1]
-//   uncertainty: string | null,      // what is still not sure
-//   sources: [{ ref: 1, passportId, passport }],
-//   conflicts: [{ id, title, difference,
-//                 sourceA: { ref, passportId, excerpt },
-//                 sourceB: { ref, passportId, excerpt },
-//                 expert: { id, name, reason, expertise: [string] } }],
-// }
-//
-// getPassport(passportId) -> {
-//   passport,                        // contract shape
-//   content: string,                 // excerpt of the source
-//   versionNotes: [{ version, date, summary }],  // "what changed" per version
-// }
+// To use the real backend: set USE_MOCK to false and fill in the Firebase calls
+// below (needs the `firebase` package and the project config; see the notes there).
 
-import { passports as mockPassports, users, clientNames, passportDetails, demoAnswer } from './data/mockData'
+import { demoUsers, mockAskResults, mockPassports } from './data/mockData'
 
-// In-memory copy so "Confirm still valid" can change it during the demo.
+const USE_MOCK = true
+
+// In-memory copy so verifying a source is visible during the demo.
 const passports = structuredClone(mockPassports)
-
-function findPassport(passportId) {
-  return passports.find((p) => p.id === passportId)
-}
+const verifiedInDemo = new Set()
 
 export async function getUsers() {
-  return users
+  return demoUsers
 }
 
-export function getClientName(clientId) {
-  return clientNames[clientId] ?? clientId
-}
-
-export async function askQuestion(question) {
-  // The mock ignores the question text and always returns the demo answer.
-  return {
-    ...demoAnswer,
-    question,
-    sources: demoAnswer.sources.map((s) => ({ ...s, passport: findPassport(s.passportId) })),
+export async function askQuestion(question, { country, client } = {}) {
+  if (USE_MOCK) {
+    // The mock ignores the question text: it returns the backend's answer to the
+    // demo question for this country, taking into account sources verified so far.
+    const byCountry = mockAskResults[country] ?? mockAskResults.BE
+    const key = [...verifiedInDemo].sort().join(',')
+    return structuredClone(byCountry[key] ?? byCountry[''])
   }
+  // Real call (backend region europe-west1):
+  //   const ask = httpsCallable(functions, 'ask')
+  //   const { data } = await ask({ question, country, client })
+  //   return data
+  throw new Error(`Backend not connected yet (question: ${question}, ${country ?? ''} ${client ?? ''})`)
 }
 
 export async function getPassport(passportId) {
-  const passport = findPassport(passportId)
-  if (!passport) return null
-  const details = passportDetails[passportId] ?? { content: '', versionNotes: [] }
-  return { passport, ...details }
+  if (USE_MOCK) {
+    return structuredClone(passports.find((p) => p.id === passportId) ?? null)
+  }
+  // Real call: signed-in users may read passports directly (firestore.rules):
+  //   const snap = await getDoc(doc(db, 'passports', passportId))
+  //   return snap.exists() ? snap.data() : null
+  throw new Error('Backend not connected yet')
 }
 
-// The owner confirms the current version is still correct. Following the contract:
-// append a "verified" stamp for the current version and set lastVerifiedAt.
-// This does not resolve open conflicts.
-export async function confirmStillValid(passportId, user) {
-  const passport = findPassport(passportId)
-  if (!passport || passport.owner?.id !== user.id) {
-    throw new Error('Only the owner can confirm this document.')
+// Only the owner can verify: the backend checks that the signed-in user's
+// verified email equals owner.contact. The mock does the same check.
+export async function verifySource(passportId, user) {
+  if (USE_MOCK) {
+    const passport = passports.find((p) => p.id === passportId)
+    if (!passport || passport.owner?.contact.toLowerCase() !== user.email.toLowerCase()) {
+      throw new Error("You can't verify this source.")
+    }
+    passport.lastVerifiedAt = new Date().toISOString()
+    verifiedInDemo.add(passportId)
+    return { passportId, lastVerifiedAt: passport.lastVerifiedAt }
   }
-  const at = new Date().toISOString().replace(/\.\d+Z$/, 'Z')
-  passport.stamps.push({
-    id: `stamp.${passport.id}.verified.${Date.now()}`,
-    type: 'verified',
-    at,
-    actor: { id: user.id, name: user.name, type: 'person' },
-    version: passport.version,
-    note: 'Owner confirmed this version is still valid.',
-    relatedStampIds: [],
-  })
-  passport.lastVerifiedAt = at
-  return getPassport(passportId)
+  // Real call:
+  //   const verify = httpsCallable(functions, 'verifySource')
+  //   const { data } = await verify({ passportId })
+  //   return data
+  throw new Error('Backend not connected yet')
 }

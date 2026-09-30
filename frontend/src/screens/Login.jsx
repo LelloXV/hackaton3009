@@ -8,7 +8,7 @@ export default function Login({ onLogin }) {
   useEffect(() => {
     getUsers().then((list) => {
       setUsers(list)
-      setSelectedId(list[0]?.id ?? null)
+      setSelectedId(list[0]?.uid ?? null)
     })
   }, [])
 
@@ -21,20 +21,20 @@ export default function Login({ onLogin }) {
         <div className="mt-6 space-y-2">
           {users.map((u) => (
             <label
-              key={u.id}
+              key={u.uid}
               className={`flex cursor-pointer items-center justify-between rounded-lg border px-3 py-2 text-sm transition ${
-                selectedId === u.id ? 'border-slate-800 bg-slate-50' : 'border-slate-200'
+                selectedId === u.uid ? 'border-slate-800 bg-slate-50' : 'border-slate-200'
               }`}
             >
               <span>
                 <span className="font-medium text-slate-800">{u.name}</span>
-                <span className="ml-2 text-xs text-slate-400">{u.role}</span>
+                <span className="block text-xs text-slate-500">{u.description}</span>
               </span>
               <input
                 type="radio"
                 name="user"
-                checked={selectedId === u.id}
-                onChange={() => setSelectedId(u.id)}
+                checked={selectedId === u.uid}
+                onChange={() => setSelectedId(u.uid)}
                 className="accent-slate-800"
               />
             </label>
@@ -42,7 +42,7 @@ export default function Login({ onLogin }) {
         </div>
 
         <button
-          onClick={() => onLogin(users.find((u) => u.id === selectedId))}
+          onClick={() => onLogin(users.find((u) => u.uid === selectedId))}
           disabled={!selectedId}
           className="mt-6 w-full rounded-lg bg-slate-800 py-2 text-sm font-medium text-white transition hover:bg-slate-700 disabled:opacity-50"
         >
