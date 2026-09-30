@@ -1,0 +1,440 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Knowledge Passport",
+  "description": "Shared SD Worx hackathon passport contract, version 1.0.0.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": {
+      "const": "1.0.0"
+    },
+    "id": {
+      "$ref": "#/$defs/identifier"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 500
+    },
+    "issuer": {
+      "$ref": "#/$defs/actor"
+    },
+    "owner": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/actor"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "createdAt": {
+      "$ref": "#/$defs/timestamp"
+    },
+    "updatedAt": {
+      "$ref": "#/$defs/timestamp"
+    },
+    "lastVerifiedAt": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/timestamp"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "expiresAt": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/timestamp"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "visa": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "countries": {
+          "$ref": "#/$defs/countryScope"
+        },
+        "clients": {
+          "$ref": "#/$defs/clientScope"
+        },
+        "modules": {
+          "$ref": "#/$defs/moduleScope"
+        }
+      },
+      "required": [
+        "countries",
+        "clients",
+        "modules"
+      ]
+    },
+    "sourceType": {
+      "$ref": "#/$defs/sourceType"
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "uri": {
+          "$ref": "#/$defs/uri"
+        }
+      },
+      "required": [
+        "id",
+        "uri"
+      ]
+    },
+    "version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "stamps": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/stamp"
+      },
+      "uniqueItems": true
+    },
+    "linkedSources": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/linkedSource"
+      },
+      "uniqueItems": true
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "id",
+    "title",
+    "issuer",
+    "owner",
+    "createdAt",
+    "updatedAt",
+    "lastVerifiedAt",
+    "expiresAt",
+    "visa",
+    "sourceType",
+    "source",
+    "version",
+    "stamps",
+    "linkedSources"
+  ],
+  "$defs": {
+    "identifier": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d+)?Z$"
+    },
+    "uri": {
+      "type": "string",
+      "format": "uri",
+      "pattern": "^https://",
+      "maxLength": 2048
+    },
+    "actor": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        },
+        "type": {
+          "enum": [
+            "person",
+            "team",
+            "system"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "type"
+      ]
+    },
+    "sourceType": {
+      "enum": [
+        "document",
+        "chat",
+        "email",
+        "business_record",
+        "expert_note",
+        "generated_answer"
+      ]
+    },
+    "countryScope": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "mode": {
+          "enum": [
+            "all",
+            "listed",
+            "unknown"
+          ]
+        },
+        "values": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Z]{2}$"
+          },
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "mode",
+        "values"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "mode": {
+                "const": "listed"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "values": {
+                "minItems": 1
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "values": {
+                "maxItems": 0
+              }
+            }
+          }
+        }
+      ]
+    },
+    "clientScope": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "mode": {
+          "enum": [
+            "all",
+            "listed",
+            "unknown"
+          ]
+        },
+        "values": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/identifier"
+          },
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "mode",
+        "values"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "mode": {
+                "const": "listed"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "values": {
+                "minItems": 1
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "values": {
+                "maxItems": 0
+              }
+            }
+          }
+        }
+      ]
+    },
+    "moduleScope": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "mode": {
+          "enum": [
+            "all",
+            "listed",
+            "unknown"
+          ]
+        },
+        "values": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "hr",
+              "pay",
+              "time"
+            ]
+          },
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "mode",
+        "values"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "mode": {
+                "const": "listed"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "values": {
+                "minItems": 1
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "values": {
+                "maxItems": 0
+              }
+            }
+          }
+        }
+      ]
+    },
+    "stamp": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "type": {
+          "enum": [
+            "verified",
+            "conflict",
+            "conflict_resolved",
+            "revoked",
+            "note"
+          ]
+        },
+        "at": {
+          "$ref": "#/$defs/timestamp"
+        },
+        "actor": {
+          "$ref": "#/$defs/actor"
+        },
+        "version": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "note": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        },
+        "relatedStampIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/identifier"
+          },
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "at",
+        "actor",
+        "version",
+        "note",
+        "relatedStampIds"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "conflict_resolved"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "relatedStampIds": {
+                "minItems": 1
+              }
+            }
+          }
+        }
+      ]
+    },
+    "linkedSource": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        },
+        "sourceType": {
+          "$ref": "#/$defs/sourceType"
+        },
+        "uri": {
+          "$ref": "#/$defs/uri"
+        },
+        "relation": {
+          "enum": [
+            "supports",
+            "contradicts",
+            "derived_from",
+            "supersedes"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "sourceType",
+        "uri",
+        "relation"
+      ]
+    }
+  }
+}

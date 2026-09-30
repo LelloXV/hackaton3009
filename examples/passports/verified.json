@@ -1,0 +1,59 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "passport.be.payroll",
+  "title": "Belgian payroll procedure (fictional demo)",
+  "issuer": {
+    "id": "demo.importer",
+    "name": "Demo Importer",
+    "type": "system"
+  },
+  "owner": {
+    "id": "demo.payroll-owner",
+    "name": "Demo Payroll Owner",
+    "type": "person"
+  },
+  "createdAt": "2026-09-01T09:00:00Z",
+  "updatedAt": "2026-09-29T09:00:00Z",
+  "lastVerifiedAt": "2026-09-30T09:00:00Z",
+  "expiresAt": "2026-10-30T09:00:00Z",
+  "visa": {
+    "countries": {
+      "mode": "listed",
+      "values": [
+        "BE"
+      ]
+    },
+    "clients": {
+      "mode": "all",
+      "values": []
+    },
+    "modules": {
+      "mode": "listed",
+      "values": [
+        "pay"
+      ]
+    }
+  },
+  "sourceType": "document",
+  "source": {
+    "id": "doc.be.payroll",
+    "uri": "https://example.com/demo/be-payroll"
+  },
+  "version": 2,
+  "stamps": [
+    {
+      "id": "stamp.be.verified.v2",
+      "type": "verified",
+      "at": "2026-09-30T09:00:00Z",
+      "actor": {
+        "id": "demo.payroll-owner",
+        "name": "Demo Payroll Owner",
+        "type": "person"
+      },
+      "version": 2,
+      "note": "Demo owner reviewed version 2 for the declared visa.",
+      "relatedStampIds": []
+    }
+  ],
+  "linkedSources": []
+}
