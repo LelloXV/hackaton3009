@@ -1,4 +1,6 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { onAuthStateChanged, signOut } from 'firebase/auth'
+import { auth, toAppUser } from './firebase'
 import Login from './screens/Login'
 import AnswerScreen from './screens/AnswerScreen'
 import DocumentPassport from './screens/DocumentPassport'
@@ -11,6 +13,25 @@ export default function App() {
   const [openConflict, setOpenConflict] = useState(null)
   // Bumped after an owner verifies a source, so the answer is fetched again.
   const [refreshKey, setRefreshKey] = useState(0)
+  // Without Firebase there is nothing to wait for (demo accounts).
+  const [authReady, setAuthReady] = useState(!auth)
+
+  useEffect(() => {
+    if (!auth) return
+    return onAuthStateChanged(auth, (fbUser) => {
+      setCurrentUser(fbUser ? toAppUser(fbUser) : null)
+      setAuthReady(true)
+    })
+  }, [])
+
+  function logout() {
+    if (auth) signOut(auth)
+    setCurrentUser(null)
+  }
+
+  if (!authReady) {
+    return <div className="flex min-h-screen items-center justify-center bg-slate-50 text-sm text-slate-400">Loading…</div>
+  }
 
   if (!currentUser) {
     return <Login onLogin={setCurrentUser} />
@@ -23,7 +44,7 @@ export default function App() {
         refreshKey={refreshKey}
         onOpenPassport={setOpenPassportId}
         onOpenConflict={(conflict, sources) => setOpenConflict({ conflict, sources })}
-        onLogout={() => setCurrentUser(null)}
+        onLogout={logout}
       />
       {openConflict && (
         <ConflictPanel
