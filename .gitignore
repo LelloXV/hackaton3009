@@ -1,0 +1,5 @@
+serviceAccountKey.json
+.env*
+.runtimeconfig.json
+node_modules
+firebase login --no-localhost
