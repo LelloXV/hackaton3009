@@ -1,0 +1,37 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "passport.unknown",
+  "title": "Unowned imported note (fictional demo)",
+  "issuer": {
+    "id": "demo.importer",
+    "name": "Demo Importer",
+    "type": "system"
+  },
+  "owner": null,
+  "createdAt": "2026-09-01T09:00:00Z",
+  "updatedAt": "2026-09-29T09:00:00Z",
+  "lastVerifiedAt": null,
+  "expiresAt": null,
+  "visa": {
+    "countries": {
+      "mode": "unknown",
+      "values": []
+    },
+    "clients": {
+      "mode": "unknown",
+      "values": []
+    },
+    "modules": {
+      "mode": "unknown",
+      "values": []
+    }
+  },
+  "sourceType": "chat",
+  "source": {
+    "id": "chat.unknown",
+    "uri": "https://example.com/demo/unknown-chat"
+  },
+  "version": 1,
+  "stamps": [],
+  "linkedSources": []
+}
