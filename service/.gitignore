@@ -1,0 +1,20 @@
+# Dependencies and build output
+node_modules/
+functions/lib/
+
+# Secrets: never commit these (Aikido secrets scanning)
+.env
+.env.*
+*.local
+.runtimeconfig.json
+*serviceAccount*.json
+*-firebase-adminsdk-*.json
+.secret.local
+
+# Firebase and logs
+.firebase/
+*.log
+firebase-debug.log*
+firestore-debug.log*
+ui-debug.log*
+emulator-data/
