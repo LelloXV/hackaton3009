@@ -1,0 +1,19 @@
+rules_version = '2';
+
+// Deny by default. Clients can only READ passports; every write goes through
+// the Cloud Functions (Admin SDK), which bypass these rules on purpose.
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Passports: signed-in users may read them (the frontend shows the trust badges).
+    match /passports/{passportId} {
+      allow read: if request.auth != null;
+      allow write: if false;
+    }
+
+    // Chunks, and anything else not listed above: no direct client access at all.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
