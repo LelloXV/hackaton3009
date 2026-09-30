@@ -11,9 +11,11 @@
     "demo": "npm run build && node lib/scripts/demo.js",
     "seed": "npm run build && node lib/scripts/seed.js",
     "serve": "npm run build && firebase emulators:start",
-    "deploy": "firebase deploy --only functions"
+    "deploy": "firebase deploy --only functions",
+    "export-mocks": "npm run build && node lib/scripts/exportMocks.js"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.130.0",
     "firebase-admin": "^14.5.0",
     "firebase-functions": "^7.4.0",
     "zod": "^4.6.5"

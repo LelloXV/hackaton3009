@@ -55,6 +55,32 @@ class PassportContractTest(unittest.TestCase):
             resolution["relatedStampIds"] = [reference]
             self.assertTrue(validate(passport, self.now))
 
+    def test_v1_1_fields_are_checked(self):
+        mutations = [
+            lambda p: p.update(schemaVersion="1.0.0"),
+            lambda p: p.pop("departments"),
+            lambda p: p.update(updates=[]),
+            lambda p: p["updates"][0].update(version=1) if p["version"] != 1 else p["updates"][0].update(version=2),
+            lambda p: p["updates"].append(dict(p["updates"][0])),
+            lambda p: p["openIssues"].extend([
+                {"id": "issue.a", "title": "A", "severity": "minor", "openedAt": "2026-09-29T10:00:00Z"},
+                {"id": "issue.a", "title": "B", "severity": "major", "openedAt": "2026-09-29T10:00:00Z"},
+            ]),
+            lambda p: p["openIssues"].append({"id": "issue.x", "title": "X", "severity": "blocker", "openedAt": "2026-09-29T10:00:00Z"}),
+            lambda p: p["related"].append({"passportId": p["id"], "title": "Self", "relation": "Loop"}),
+            lambda p: p.update(sourceType="projects"),
+        ]
+        for mutate in mutations:
+            with self.subTest(mutation=mutate):
+                passport = copy.deepcopy(self.passport)
+                mutate(passport)
+                self.assertTrue(validate(passport, self.now))
+
+    def test_team_owner_and_archived_passports_are_valid(self):
+        passport = json.loads((ROOT / "examples/passports/payroll-harmonisation-pilot-2024.json").read_text())
+        self.assertEqual(passport["owner"]["type"], "team")
+        self.assertEqual(validate(passport, self.now), [])
+
     def test_duplicate_ids_and_unrecorded_contradictions_are_rejected(self):
         passport = json.loads((ROOT / "examples/passports/conflicted.json").read_text())
         passport["stamps"].pop()

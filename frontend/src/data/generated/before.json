@@ -1,0 +1,2594 @@
+{
+  "ask": {
+    "BE": {
+      "question": "When does payroll harmonisation go live in Belgium?",
+      "context": {
+        "country": "BE",
+        "client": null
+      },
+      "answer": "Sources disagree. 1 April 2027 according to [1] [2]; 1 January 2027 according to [2]. 1 April 2027 has the most support, but check with Jane De Smet (Transformation Office) before answering.",
+      "confidence": "low",
+      "results": [
+        {
+          "ref": 1,
+          "passportId": "passport.be-payroll-go-live",
+          "passport": {
+            "schemaVersion": "1.1.0",
+            "id": "passport.be-payroll-go-live",
+            "reference": "#287",
+            "title": "Belgium payroll go-live readiness",
+            "description": "Country workstream of Global Payroll Harmonisation: readiness checks and cut-over plan for Belgium.",
+            "issuer": {
+              "id": "person.lotte-maes",
+              "name": "Lotte Maes",
+              "type": "person"
+            },
+            "owner": {
+              "id": "team.payroll-ops-be",
+              "name": "Payroll Operations BE",
+              "type": "team"
+            },
+            "createdAt": "2026-06-01T09:00:00Z",
+            "updatedAt": "2026-09-10T11:00:00Z",
+            "updatedBy": {
+              "id": "person.lotte-maes",
+              "name": "Lotte Maes",
+              "type": "person"
+            },
+            "lastVerifiedAt": "2026-09-15T15:00:00Z",
+            "expiresAt": "2027-04-30T17:00:00Z",
+            "visa": {
+              "countries": {
+                "mode": "listed",
+                "values": [
+                  "BE"
+                ]
+              },
+              "clients": {
+                "mode": "all",
+                "values": []
+              },
+              "modules": {
+                "mode": "listed",
+                "values": [
+                  "pay"
+                ]
+              }
+            },
+            "departments": [
+              "Pay · Payroll Operations BE"
+            ],
+            "sourceType": "project",
+            "source": {
+              "id": "jira.pay-287",
+              "uri": "https://jira.example.com/browse/PAY-287"
+            },
+            "version": 2,
+            "stamps": [
+              {
+                "id": "stamp.be-go-live.verified.v1",
+                "type": "verified",
+                "at": "2026-06-05T10:00:00Z",
+                "actor": {
+                  "id": "person.lotte-maes",
+                  "name": "Lotte Maes",
+                  "type": "person"
+                },
+                "version": 1,
+                "note": "Workstream plan reviewed with the client.",
+                "relatedStampIds": []
+              },
+              {
+                "id": "stamp.be-go-live.verified.v2",
+                "type": "verified",
+                "at": "2026-09-15T15:00:00Z",
+                "actor": {
+                  "id": "person.lotte-maes",
+                  "name": "Lotte Maes",
+                  "type": "person"
+                },
+                "version": 2,
+                "note": "Cut-over plan reviewed; go-live 1 April 2027 confirmed with the client.",
+                "relatedStampIds": []
+              }
+            ],
+            "linkedSources": [
+              {
+                "id": "doc.be.cutover-plan",
+                "title": "Cut-over plan Belgium",
+                "sourceType": "business_record",
+                "app": "Excel",
+                "version": "v3",
+                "updatedAt": "2026-09-10T11:00:00Z",
+                "countries": [
+                  "BE"
+                ],
+                "uri": "https://sharepoint.example.com/be/cutover-plan.xlsx",
+                "relation": "supports"
+              },
+              {
+                "id": "chat.gph.teams-go-live",
+                "title": "Teams thread",
+                "sourceType": "chat",
+                "app": "Microsoft Teams",
+                "version": null,
+                "updatedAt": "2026-09-18T15:40:00Z",
+                "countries": [
+                  "BE",
+                  "NL"
+                ],
+                "uri": "https://teams.example.com/gph/go-live",
+                "relation": "supports"
+              },
+              {
+                "id": "doc.be.readiness-checklist",
+                "title": "Readiness checklist Belgium",
+                "sourceType": "document",
+                "app": "Confluence",
+                "version": null,
+                "updatedAt": "2026-09-08T09:00:00Z",
+                "countries": [
+                  "BE"
+                ],
+                "uri": "https://confluence.example.com/be/readiness",
+                "relation": "supports"
+              }
+            ],
+            "openIssues": [
+              {
+                "id": "issue.be.parallel-run",
+                "title": "Parallel run schedule not final",
+                "severity": "minor",
+                "openedAt": "2026-09-15T15:00:00Z"
+              }
+            ],
+            "updates": [
+              {
+                "version": 1,
+                "at": "2026-06-01T09:00:00Z",
+                "actor": {
+                  "id": "person.lotte-maes",
+                  "name": "Lotte Maes",
+                  "type": "person"
+                },
+                "summary": "Workstream set up; target go-live 1 April 2027 agreed with the client."
+              },
+              {
+                "version": 2,
+                "at": "2026-09-10T11:00:00Z",
+                "actor": {
+                  "id": "person.lotte-maes",
+                  "name": "Lotte Maes",
+                  "type": "person"
+                },
+                "summary": "Cut-over plan added."
+              }
+            ],
+            "related": [
+              {
+                "passportId": "passport.global-payroll-harmonisation",
+                "title": "Global Payroll Harmonisation",
+                "relation": "Parent project"
+              }
+            ]
+          },
+          "trust": {
+            "score": 95,
+            "level": "high",
+            "criteria": [
+              {
+                "id": "sources_agree",
+                "label": "Sources agree",
+                "maxPoints": 20,
+                "points": 20,
+                "status": "ok",
+                "details": "No conflicts between sources"
+              },
+              {
+                "id": "last_updated",
+                "label": "Last updated",
+                "maxPoints": 20,
+                "points": 20,
+                "status": "ok",
+                "details": "10 Sep 2026 (≤ 3 months)"
+              },
+              {
+                "id": "owner_unit",
+                "label": "Owner (unit)",
+                "maxPoints": 15,
+                "points": 15,
+                "status": "ok",
+                "details": "Payroll Operations BE"
+              },
+              {
+                "id": "scope_coverage",
+                "label": "Scope coverage",
+                "maxPoints": 15,
+                "points": 15,
+                "status": "ok",
+                "details": "Covers BE"
+              },
+              {
+                "id": "owner_review",
+                "label": "Owner review",
+                "maxPoints": 10,
+                "points": 10,
+                "status": "ok",
+                "details": "Reviewed 14 days ago"
+              },
+              {
+                "id": "department_defined",
+                "label": "Department defined",
+                "maxPoints": 10,
+                "points": 10,
+                "status": "ok",
+                "details": "Pay · Payroll Operations BE"
+              },
+              {
+                "id": "open_issues",
+                "label": "Open issues",
+                "maxPoints": 10,
+                "points": 5,
+                "status": "partial",
+                "details": "1 open: Parallel run schedule not final"
+              }
+            ]
+          },
+          "archived": false,
+          "canEdit": false,
+          "excerpt": "Go-live: 1 April 2027.",
+          "inScope": true,
+          "scopeNote": null
+        },
+        {
+          "ref": 2,
+          "passportId": "passport.global-payroll-harmonisation",
+          "passport": {
+            "schemaVersion": "1.1.0",
+            "id": "passport.global-payroll-harmonisation",
+            "reference": "#241",
+            "title": "Global Payroll Harmonisation",
+            "description": "Harmonise payroll processes and configurations across key countries to improve efficiency, compliance and data quality.",
+            "issuer": {
+              "id": "person.jane-desmet",
+              "name": "Jane De Smet",
+              "type": "person"
+            },
+            "owner": {
+              "id": "team.transformation-office",
+              "name": "Transformation Office",
+              "type": "team"
+            },
+            "createdAt": "2025-11-03T09:00:00Z",
+            "updatedAt": "2026-09-12T14:20:00Z",
+            "updatedBy": {
+              "id": "person.jane-desmet",
+              "name": "Jane De Smet",
+              "type": "person"
+            },
+            "lastVerifiedAt": null,
+            "expiresAt": "2027-06-30T17:00:00Z",
+            "visa": {
+              "countries": {
+                "mode": "listed",
+                "values": [
+                  "BE",
+                  "NL",
+                  "FR",
+                  "DE",
+                  "ES",
+                  "LU",
+                  "AT",
+                  "IT",
+                  "PT",
+                  "IE",
+                  "PL",
+                  "CZ",
+                  "SK",
+                  "HU",
+                  "DK",
+                  "SE",
+                  "FI"
+                ]
+              },
+              "clients": {
+                "mode": "all",
+                "values": []
+              },
+              "modules": {
+                "mode": "listed",
+                "values": [
+                  "pay",
+                  "hr",
+                  "time"
+                ]
+              }
+            },
+            "departments": [
+              "Pay · Payroll Operations",
+              "HR · HR Operations",
+              "Time · Workforce Management",
+              "Finance · Payroll Accounting"
+            ],
+            "sourceType": "project",
+            "source": {
+              "id": "jira.pay-241",
+              "uri": "https://jira.example.com/browse/PAY-241"
+            },
+            "version": 3,
+            "stamps": [
+              {
+                "id": "stamp.gph.verified.v1",
+                "type": "verified",
+                "at": "2025-11-10T10:00:00Z",
+                "actor": {
+                  "id": "person.jane-desmet",
+                  "name": "Jane De Smet",
+                  "type": "person"
+                },
+                "version": 1,
+                "note": "Initial scope and plan reviewed.",
+                "relatedStampIds": []
+              },
+              {
+                "id": "stamp.gph.verified.v2",
+                "type": "verified",
+                "at": "2026-05-20T09:30:00Z",
+                "actor": {
+                  "id": "person.jane-desmet",
+                  "name": "Jane De Smet",
+                  "type": "person"
+                },
+                "version": 2,
+                "note": "Extended scope (17 countries) reviewed.",
+                "relatedStampIds": []
+              },
+              {
+                "id": "stamp.gph.conflict.v3",
+                "type": "conflict",
+                "at": "2026-09-18T16:05:00Z",
+                "actor": {
+                  "id": "system.conflict-detector",
+                  "name": "Conflict Detector",
+                  "type": "system"
+                },
+                "version": 3,
+                "note": "Conflicting go-live date: the project plan (v1.4) says 1 January 2027, the Teams thread of 18 Sep 2026 says 1 April 2027.",
+                "relatedStampIds": []
+              },
+              {
+                "id": "stamp.gph.note.v3",
+                "type": "note",
+                "at": "2026-09-20T08:00:00Z",
+                "actor": {
+                  "id": "system.coverage-check",
+                  "name": "Coverage Check",
+                  "type": "system"
+                },
+                "version": 3,
+                "note": "HR module impact is not covered by any source.",
+                "relatedStampIds": []
+              }
+            ],
+            "linkedSources": [
+              {
+                "id": "doc.gph.project-plan",
+                "title": "Project plan",
+                "sourceType": "document",
+                "app": "SharePoint",
+                "version": "v1.4",
+                "updatedAt": "2026-09-03T10:00:00Z",
+                "countries": [],
+                "uri": "https://sharepoint.example.com/gph/project-plan",
+                "relation": "supports"
+              },
+              {
+                "id": "chat.gph.teams-go-live",
+                "title": "Teams thread",
+                "sourceType": "chat",
+                "app": "Microsoft Teams",
+                "version": null,
+                "updatedAt": "2026-09-18T15:40:00Z",
+                "countries": [
+                  "BE",
+                  "NL"
+                ],
+                "uri": "https://teams.example.com/gph/go-live",
+                "relation": "contradicts"
+              },
+              {
+                "id": "doc.gph.scope-file-2024",
+                "title": "Scope file 2024",
+                "sourceType": "business_record",
+                "app": "Excel",
+                "version": null,
+                "updatedAt": "2024-03-14T09:00:00Z",
+                "countries": [
+                  "BE",
+                  "NL",
+                  "FR",
+                  "DE",
+                  "ES",
+                  "LU",
+                  "IT",
+                  "PT",
+                  "IE",
+                  "SE"
+                ],
+                "uri": "https://sharepoint.example.com/gph/scope-2024.xlsx",
+                "relation": "derived_from"
+              },
+              {
+                "id": "doc.gph.change-log",
+                "title": "Change log",
+                "sourceType": "document",
+                "app": "Confluence",
+                "version": null,
+                "updatedAt": "2026-09-12T14:20:00Z",
+                "countries": [],
+                "uri": "https://confluence.example.com/gph/change-log",
+                "relation": "supports"
+              },
+              {
+                "id": "email.gph.steering-committee",
+                "title": "Steering committee minutes",
+                "sourceType": "email",
+                "app": "Outlook",
+                "version": null,
+                "updatedAt": "2026-08-28T12:00:00Z",
+                "countries": [],
+                "uri": "https://mail.example.com/gph/steering-2026-08",
+                "relation": "supports"
+              },
+              {
+                "id": "doc.gph.country-checklist",
+                "title": "Country readiness checklist",
+                "sourceType": "business_record",
+                "app": "Excel",
+                "version": "v7",
+                "updatedAt": "2026-07-15T09:00:00Z",
+                "countries": [
+                  "BE",
+                  "NL",
+                  "FR",
+                  "DE",
+                  "ES",
+                  "LU",
+                  "AT",
+                  "IT",
+                  "PT",
+                  "IE",
+                  "PL",
+                  "CZ",
+                  "SK",
+                  "HU",
+                  "SE"
+                ],
+                "uri": "https://sharepoint.example.com/gph/country-checklist.xlsx",
+                "relation": "supports"
+              },
+              {
+                "id": "note.gph.germany-expert",
+                "title": "Germany payroll expert note",
+                "sourceType": "expert_note",
+                "app": "OneNote",
+                "version": null,
+                "updatedAt": "2026-08-02T09:00:00Z",
+                "countries": [
+                  "DE"
+                ],
+                "uri": "https://onenote.example.com/gph/germany",
+                "relation": "supports"
+              },
+              {
+                "id": "doc.gph.pilot-report-2024",
+                "title": "Harmonisation pilot report 2024",
+                "sourceType": "document",
+                "app": "SharePoint",
+                "version": "v2.0",
+                "updatedAt": "2024-06-30T16:00:00Z",
+                "countries": [
+                  "BE",
+                  "NL"
+                ],
+                "uri": "https://sharepoint.example.com/pilot/report",
+                "relation": "supersedes"
+              }
+            ],
+            "openIssues": [
+              {
+                "id": "issue.gph.hr-impact",
+                "title": "HR module impact not covered",
+                "severity": "major",
+                "openedAt": "2026-09-20T08:00:00Z"
+              }
+            ],
+            "updates": [
+              {
+                "version": 1,
+                "at": "2025-11-03T09:00:00Z",
+                "actor": {
+                  "id": "person.jane-desmet",
+                  "name": "Jane De Smet",
+                  "type": "person"
+                },
+                "summary": "Project started: 12 countries in scope, go-live 1 January 2027."
+              },
+              {
+                "version": 2,
+                "at": "2026-05-12T11:00:00Z",
+                "actor": {
+                  "id": "person.jane-desmet",
+                  "name": "Jane De Smet",
+                  "type": "person"
+                },
+                "summary": "Scope extended from 12 to 17 countries (added AT, PL, CZ, SK, HU)."
+              },
+              {
+                "version": 3,
+                "at": "2026-09-12T14:20:00Z",
+                "actor": {
+                  "id": "person.jane-desmet",
+                  "name": "Jane De Smet",
+                  "type": "person"
+                },
+                "summary": "Project plan updated to v1.4 and change log added. Go-live date unchanged (1 January 2027)."
+              }
+            ],
+            "related": [
+              {
+                "passportId": "passport.be-payroll-go-live",
+                "title": "Belgium payroll go-live readiness",
+                "relation": "Country workstream"
+              },
+              {
+                "passportId": "passport.payroll-harmonisation-pilot-2024",
+                "title": "Payroll Harmonisation Pilot 2024",
+                "relation": "Earlier pilot (replaced)"
+              }
+            ]
+          },
+          "trust": {
+            "score": 63,
+            "level": "medium",
+            "criteria": [
+              {
+                "id": "sources_agree",
+                "label": "Sources agree",
+                "maxPoints": 20,
+                "points": 0,
+                "status": "conflict",
+                "details": "Conflicting go-live date"
+              },
+              {
+                "id": "last_updated",
+                "label": "Last updated",
+                "maxPoints": 20,
+                "points": 20,
+                "status": "ok",
+                "details": "12 Sep 2026 (≤ 3 months)"
+              },
+              {
+                "id": "owner_unit",
+                "label": "Owner (unit)",
+                "maxPoints": 15,
+                "points": 15,
+                "status": "ok",
+                "details": "Transformation Office"
+              },
+              {
+                "id": "scope_coverage",
+                "label": "Scope coverage",
+                "maxPoints": 15,
+                "points": 13,
+                "status": "partial",
+                "details": "Covers 15/17 countries"
+              },
+              {
+                "id": "owner_review",
+                "label": "Owner review",
+                "maxPoints": 10,
+                "points": 5,
+                "status": "stale",
+                "details": "Last review > 3 months ago"
+              },
+              {
+                "id": "department_defined",
+                "label": "Department defined",
+                "maxPoints": 10,
+                "points": 10,
+                "status": "ok",
+                "details": "Pay · Payroll Operations"
+              },
+              {
+                "id": "open_issues",
+                "label": "Open issues",
+                "maxPoints": 10,
+                "points": 0,
+                "status": "missing",
+                "details": "HR module impact not covered"
+              }
+            ]
+          },
+          "archived": false,
+          "canEdit": false,
+          "excerpt": "Go-live for all countries in scope: 1 January 2027.",
+          "inScope": true,
+          "scopeNote": null
+        }
+      ],
+      "archived": [
+        {
+          "ref": 3,
+          "passportId": "passport.payroll-harmonisation-pilot-2024",
+          "passport": {
+            "schemaVersion": "1.1.0",
+            "id": "passport.payroll-harmonisation-pilot-2024",
+            "reference": "#112",
+            "title": "Payroll Harmonisation Pilot 2024",
+            "description": "Pilot in Belgium and the Netherlands that tested a common payroll process before the global programme.",
+            "issuer": {
+              "id": "person.pieter-claes",
+              "name": "Pieter Claes",
+              "type": "person"
+            },
+            "owner": {
+              "id": "team.payroll-ops",
+              "name": "Payroll Operations",
+              "type": "team"
+            },
+            "createdAt": "2024-01-15T09:00:00Z",
+            "updatedAt": "2024-06-30T16:00:00Z",
+            "updatedBy": {
+              "id": "person.pieter-claes",
+              "name": "Pieter Claes",
+              "type": "person"
+            },
+            "lastVerifiedAt": "2024-07-01T10:00:00Z",
+            "expiresAt": "2024-12-31T17:00:00Z",
+            "visa": {
+              "countries": {
+                "mode": "listed",
+                "values": [
+                  "BE",
+                  "NL"
+                ]
+              },
+              "clients": {
+                "mode": "all",
+                "values": []
+              },
+              "modules": {
+                "mode": "listed",
+                "values": [
+                  "pay"
+                ]
+              }
+            },
+            "departments": [
+              "Pay · Payroll Operations"
+            ],
+            "sourceType": "project",
+            "source": {
+              "id": "jira.pay-112",
+              "uri": "https://jira.example.com/browse/PAY-112"
+            },
+            "version": 1,
+            "stamps": [
+              {
+                "id": "stamp.pilot.verified.v1",
+                "type": "verified",
+                "at": "2024-07-01T10:00:00Z",
+                "actor": {
+                  "id": "person.pieter-claes",
+                  "name": "Pieter Claes",
+                  "type": "person"
+                },
+                "version": 1,
+                "note": "Pilot results reviewed.",
+                "relatedStampIds": []
+              },
+              {
+                "id": "stamp.pilot.note.v1",
+                "type": "note",
+                "at": "2024-12-31T17:00:00Z",
+                "actor": {
+                  "id": "system.archive",
+                  "name": "Archive",
+                  "type": "system"
+                },
+                "version": 1,
+                "note": "Pilot finished and replaced by the global programme. Passport moved to the archive.",
+                "relatedStampIds": []
+              }
+            ],
+            "linkedSources": [
+              {
+                "id": "doc.gph.pilot-report-2024",
+                "title": "Harmonisation pilot report 2024",
+                "sourceType": "document",
+                "app": "SharePoint",
+                "version": "v2.0",
+                "updatedAt": "2024-06-30T16:00:00Z",
+                "countries": [
+                  "BE",
+                  "NL"
+                ],
+                "uri": "https://sharepoint.example.com/pilot/report",
+                "relation": "supports"
+              },
+              {
+                "id": "doc.pilot.planning",
+                "title": "Pilot planning",
+                "sourceType": "business_record",
+                "app": "Excel",
+                "version": null,
+                "updatedAt": "2024-02-01T09:00:00Z",
+                "countries": [],
+                "uri": "https://sharepoint.example.com/pilot/planning.xlsx",
+                "relation": "supports"
+              }
+            ],
+            "openIssues": [],
+            "updates": [
+              {
+                "version": 1,
+                "at": "2024-06-30T16:00:00Z",
+                "actor": {
+                  "id": "person.pieter-claes",
+                  "name": "Pieter Claes",
+                  "type": "person"
+                },
+                "summary": "Final pilot report: go-live for BE and NL planned for 1 January 2026 (later replaced by the global programme)."
+              }
+            ],
+            "related": [
+              {
+                "passportId": "passport.global-payroll-harmonisation",
+                "title": "Global Payroll Harmonisation",
+                "relation": "Replaced by"
+              }
+            ]
+          },
+          "trust": {
+            "score": 70,
+            "level": "medium",
+            "criteria": [
+              {
+                "id": "sources_agree",
+                "label": "Sources agree",
+                "maxPoints": 20,
+                "points": 20,
+                "status": "ok",
+                "details": "No conflicts between sources"
+              },
+              {
+                "id": "last_updated",
+                "label": "Last updated",
+                "maxPoints": 20,
+                "points": 0,
+                "status": "stale",
+                "details": "30 Jun 2024 (> 6 months)"
+              },
+              {
+                "id": "owner_unit",
+                "label": "Owner (unit)",
+                "maxPoints": 15,
+                "points": 15,
+                "status": "ok",
+                "details": "Payroll Operations"
+              },
+              {
+                "id": "scope_coverage",
+                "label": "Scope coverage",
+                "maxPoints": 15,
+                "points": 15,
+                "status": "ok",
+                "details": "Covers 2/2 countries"
+              },
+              {
+                "id": "owner_review",
+                "label": "Owner review",
+                "maxPoints": 10,
+                "points": 0,
+                "status": "stale",
+                "details": "Last review > 6 months ago"
+              },
+              {
+                "id": "department_defined",
+                "label": "Department defined",
+                "maxPoints": 10,
+                "points": 10,
+                "status": "ok",
+                "details": "Pay · Payroll Operations"
+              },
+              {
+                "id": "open_issues",
+                "label": "Open issues",
+                "maxPoints": 10,
+                "points": 10,
+                "status": "ok",
+                "details": "No open issues"
+              }
+            ]
+          },
+          "archived": true,
+          "canEdit": false,
+          "excerpt": "The pilot in Belgium and the Netherlands planned go-live for 1 January 2026.",
+          "inScope": true,
+          "scopeNote": null
+        }
+      ],
+      "conflicts": [
+        {
+          "id": "conflict.1-April-2027.1-January-2027",
+          "topic": "When does payroll harmonisation go live in Belgium?",
+          "leadingClaim": "1 April 2027",
+          "positions": [
+            {
+              "claim": "1 April 2027",
+              "support": 158,
+              "evidence": [
+                {
+                  "passportId": "passport.be-payroll-go-live",
+                  "passportIds": [
+                    "passport.be-payroll-go-live"
+                  ],
+                  "linkedSourceId": "doc.be.cutover-plan",
+                  "title": "Cut-over plan Belgium",
+                  "app": "Excel",
+                  "date": "2026-09-10T11:00:00Z",
+                  "excerpt": "Go-live: 1 April 2027."
+                },
+                {
+                  "passportId": "passport.be-payroll-go-live",
+                  "passportIds": [
+                    "passport.be-payroll-go-live",
+                    "passport.global-payroll-harmonisation"
+                  ],
+                  "linkedSourceId": "chat.gph.teams-go-live",
+                  "title": "Teams thread",
+                  "app": "Microsoft Teams",
+                  "date": "2026-09-18T15:40:00Z",
+                  "excerpt": "Jane De Smet: Update for Belgium and the Netherlands: go-live moves to 1 April 2027 because the client needs an extra parallel run."
+                }
+              ]
+            },
+            {
+              "claim": "1 January 2027",
+              "support": 63,
+              "evidence": [
+                {
+                  "passportId": "passport.global-payroll-harmonisation",
+                  "passportIds": [
+                    "passport.global-payroll-harmonisation"
+                  ],
+                  "linkedSourceId": "doc.gph.project-plan",
+                  "title": "Project plan",
+                  "app": "SharePoint",
+                  "date": "2026-09-03T10:00:00Z",
+                  "excerpt": "Go-live for all countries in scope: 1 January 2027."
+                }
+              ]
+            }
+          ],
+          "difference": "Cut-over plan Belgium and Teams thread say 1 April 2027; Project plan says 1 January 2027. The most recent source is the Teams thread (18 Sep 2026), which says 1 April 2027.",
+          "resolveWith": {
+            "id": "person.jane-desmet",
+            "name": "Jane De Smet",
+            "unit": "Transformation Office",
+            "contact": "jane.desmet@example.com",
+            "expertise": [
+              "Programme lead, Global Payroll Harmonisation",
+              "Payroll process design"
+            ],
+            "reason": "Leads Transformation Office, owner of \"Global Payroll Harmonisation\", whose own sources give both answers."
+          }
+        }
+      ],
+      "uncertainty": [
+        "Sources disagree: 1 April 2027 (2 sources) vs 1 January 2027 (1 source).",
+        "Open issues: 1 open: Parallel run schedule not final.",
+        "1 archived passport also matched and was left out: Payroll Harmonisation Pilot 2024."
+      ],
+      "whoToContact": {
+        "id": "person.jane-desmet",
+        "name": "Jane De Smet",
+        "unit": "Transformation Office",
+        "contact": "jane.desmet@example.com",
+        "expertise": [
+          "Programme lead, Global Payroll Harmonisation",
+          "Payroll process design"
+        ],
+        "reason": "Leads Transformation Office, owner of \"Global Payroll Harmonisation\", whose own sources give both answers."
+      }
+    },
+    "NL": {
+      "question": "When does payroll harmonisation go live in Belgium?",
+      "context": {
+        "country": "NL",
+        "client": null
+      },
+      "answer": "Sources disagree. 1 January 2027 according to [1]; 1 April 2027 according to [1]. 1 January 2027 has the most support, but check with Jane De Smet (Transformation Office) before answering.",
+      "confidence": "low",
+      "results": [
+        {
+          "ref": 1,
+          "passportId": "passport.global-payroll-harmonisation",
+          "passport": {
+            "schemaVersion": "1.1.0",
+            "id": "passport.global-payroll-harmonisation",
+            "reference": "#241",
+            "title": "Global Payroll Harmonisation",
+            "description": "Harmonise payroll processes and configurations across key countries to improve efficiency, compliance and data quality.",
+            "issuer": {
+              "id": "person.jane-desmet",
+              "name": "Jane De Smet",
+              "type": "person"
+            },
+            "owner": {
+              "id": "team.transformation-office",
+              "name": "Transformation Office",
+              "type": "team"
+            },
+            "createdAt": "2025-11-03T09:00:00Z",
+            "updatedAt": "2026-09-12T14:20:00Z",
+            "updatedBy": {
+              "id": "person.jane-desmet",
+              "name": "Jane De Smet",
+              "type": "person"
+            },
+            "lastVerifiedAt": null,
+            "expiresAt": "2027-06-30T17:00:00Z",
+            "visa": {
+              "countries": {
+                "mode": "listed",
+                "values": [
+                  "BE",
+                  "NL",
+                  "FR",
+                  "DE",
+                  "ES",
+                  "LU",
+                  "AT",
+                  "IT",
+                  "PT",
+                  "IE",
+                  "PL",
+                  "CZ",
+                  "SK",
+                  "HU",
+                  "DK",
+                  "SE",
+                  "FI"
+                ]
+              },
+              "clients": {
+                "mode": "all",
+                "values": []
+              },
+              "modules": {
+                "mode": "listed",
+                "values": [
+                  "pay",
+                  "hr",
+                  "time"
+                ]
+              }
+            },
+            "departments": [
+              "Pay · Payroll Operations",
+              "HR · HR Operations",
+              "Time · Workforce Management",
+              "Finance · Payroll Accounting"
+            ],
+            "sourceType": "project",
+            "source": {
+              "id": "jira.pay-241",
+              "uri": "https://jira.example.com/browse/PAY-241"
+            },
+            "version": 3,
+            "stamps": [
+              {
+                "id": "stamp.gph.verified.v1",
+                "type": "verified",
+                "at": "2025-11-10T10:00:00Z",
+                "actor": {
+                  "id": "person.jane-desmet",
+                  "name": "Jane De Smet",
+                  "type": "person"
+                },
+                "version": 1,
+                "note": "Initial scope and plan reviewed.",
+                "relatedStampIds": []
+              },
+              {
+                "id": "stamp.gph.verified.v2",
+                "type": "verified",
+                "at": "2026-05-20T09:30:00Z",
+                "actor": {
+                  "id": "person.jane-desmet",
+                  "name": "Jane De Smet",
+                  "type": "person"
+                },
+                "version": 2,
+                "note": "Extended scope (17 countries) reviewed.",
+                "relatedStampIds": []
+              },
+              {
+                "id": "stamp.gph.conflict.v3",
+                "type": "conflict",
+                "at": "2026-09-18T16:05:00Z",
+                "actor": {
+                  "id": "system.conflict-detector",
+                  "name": "Conflict Detector",
+                  "type": "system"
+                },
+                "version": 3,
+                "note": "Conflicting go-live date: the project plan (v1.4) says 1 January 2027, the Teams thread of 18 Sep 2026 says 1 April 2027.",
+                "relatedStampIds": []
+              },
+              {
+                "id": "stamp.gph.note.v3",
+                "type": "note",
+                "at": "2026-09-20T08:00:00Z",
+                "actor": {
+                  "id": "system.coverage-check",
+                  "name": "Coverage Check",
+                  "type": "system"
+                },
+                "version": 3,
+                "note": "HR module impact is not covered by any source.",
+                "relatedStampIds": []
+              }
+            ],
+            "linkedSources": [
+              {
+                "id": "doc.gph.project-plan",
+                "title": "Project plan",
+                "sourceType": "document",
+                "app": "SharePoint",
+                "version": "v1.4",
+                "updatedAt": "2026-09-03T10:00:00Z",
+                "countries": [],
+                "uri": "https://sharepoint.example.com/gph/project-plan",
+                "relation": "supports"
+              },
+              {
+                "id": "chat.gph.teams-go-live",
+                "title": "Teams thread",
+                "sourceType": "chat",
+                "app": "Microsoft Teams",
+                "version": null,
+                "updatedAt": "2026-09-18T15:40:00Z",
+                "countries": [
+                  "BE",
+                  "NL"
+                ],
+                "uri": "https://teams.example.com/gph/go-live",
+                "relation": "contradicts"
+              },
+              {
+                "id": "doc.gph.scope-file-2024",
+                "title": "Scope file 2024",
+                "sourceType": "business_record",
+                "app": "Excel",
+                "version": null,
+                "updatedAt": "2024-03-14T09:00:00Z",
+                "countries": [
+                  "BE",
+                  "NL",
+                  "FR",
+                  "DE",
+                  "ES",
+                  "LU",
+                  "IT",
+                  "PT",
+                  "IE",
+                  "SE"
+                ],
+                "uri": "https://sharepoint.example.com/gph/scope-2024.xlsx",
+                "relation": "derived_from"
+              },
+              {
+                "id": "doc.gph.change-log",
+                "title": "Change log",
+                "sourceType": "document",
+                "app": "Confluence",
+                "version": null,
+                "updatedAt": "2026-09-12T14:20:00Z",
+                "countries": [],
+                "uri": "https://confluence.example.com/gph/change-log",
+                "relation": "supports"
+              },
+              {
+                "id": "email.gph.steering-committee",
+                "title": "Steering committee minutes",
+                "sourceType": "email",
+                "app": "Outlook",
+                "version": null,
+                "updatedAt": "2026-08-28T12:00:00Z",
+                "countries": [],
+                "uri": "https://mail.example.com/gph/steering-2026-08",
+                "relation": "supports"
+              },
+              {
+                "id": "doc.gph.country-checklist",
+                "title": "Country readiness checklist",
+                "sourceType": "business_record",
+                "app": "Excel",
+                "version": "v7",
+                "updatedAt": "2026-07-15T09:00:00Z",
+                "countries": [
+                  "BE",
+                  "NL",
+                  "FR",
+                  "DE",
+                  "ES",
+                  "LU",
+                  "AT",
+                  "IT",
+                  "PT",
+                  "IE",
+                  "PL",
+                  "CZ",
+                  "SK",
+                  "HU",
+                  "SE"
+                ],
+                "uri": "https://sharepoint.example.com/gph/country-checklist.xlsx",
+                "relation": "supports"
+              },
+              {
+                "id": "note.gph.germany-expert",
+                "title": "Germany payroll expert note",
+                "sourceType": "expert_note",
+                "app": "OneNote",
+                "version": null,
+                "updatedAt": "2026-08-02T09:00:00Z",
+                "countries": [
+                  "DE"
+                ],
+                "uri": "https://onenote.example.com/gph/germany",
+                "relation": "supports"
+              },
+              {
+                "id": "doc.gph.pilot-report-2024",
+                "title": "Harmonisation pilot report 2024",
+                "sourceType": "document",
+                "app": "SharePoint",
+                "version": "v2.0",
+                "updatedAt": "2024-06-30T16:00:00Z",
+                "countries": [
+                  "BE",
+                  "NL"
+                ],
+                "uri": "https://sharepoint.example.com/pilot/report",
+                "relation": "supersedes"
+              }
+            ],
+            "openIssues": [
+              {
+                "id": "issue.gph.hr-impact",
+                "title": "HR module impact not covered",
+                "severity": "major",
+                "openedAt": "2026-09-20T08:00:00Z"
+              }
+            ],
+            "updates": [
+              {
+                "version": 1,
+                "at": "2025-11-03T09:00:00Z",
+                "actor": {
+                  "id": "person.jane-desmet",
+                  "name": "Jane De Smet",
+                  "type": "person"
+                },
+                "summary": "Project started: 12 countries in scope, go-live 1 January 2027."
+              },
+              {
+                "version": 2,
+                "at": "2026-05-12T11:00:00Z",
+                "actor": {
+                  "id": "person.jane-desmet",
+                  "name": "Jane De Smet",
+                  "type": "person"
+                },
+                "summary": "Scope extended from 12 to 17 countries (added AT, PL, CZ, SK, HU)."
+              },
+              {
+                "version": 3,
+                "at": "2026-09-12T14:20:00Z",
+                "actor": {
+                  "id": "person.jane-desmet",
+                  "name": "Jane De Smet",
+                  "type": "person"
+                },
+                "summary": "Project plan updated to v1.4 and change log added. Go-live date unchanged (1 January 2027)."
+              }
+            ],
+            "related": [
+              {
+                "passportId": "passport.be-payroll-go-live",
+                "title": "Belgium payroll go-live readiness",
+                "relation": "Country workstream"
+              },
+              {
+                "passportId": "passport.payroll-harmonisation-pilot-2024",
+                "title": "Payroll Harmonisation Pilot 2024",
+                "relation": "Earlier pilot (replaced)"
+              }
+            ]
+          },
+          "trust": {
+            "score": 63,
+            "level": "medium",
+            "criteria": [
+              {
+                "id": "sources_agree",
+                "label": "Sources agree",
+                "maxPoints": 20,
+                "points": 0,
+                "status": "conflict",
+                "details": "Conflicting go-live date"
+              },
+              {
+                "id": "last_updated",
+                "label": "Last updated",
+                "maxPoints": 20,
+                "points": 20,
+                "status": "ok",
+                "details": "12 Sep 2026 (≤ 3 months)"
+              },
+              {
+                "id": "owner_unit",
+                "label": "Owner (unit)",
+                "maxPoints": 15,
+                "points": 15,
+                "status": "ok",
+                "details": "Transformation Office"
+              },
+              {
+                "id": "scope_coverage",
+                "label": "Scope coverage",
+                "maxPoints": 15,
+                "points": 13,
+                "status": "partial",
+                "details": "Covers 15/17 countries"
+              },
+              {
+                "id": "owner_review",
+                "label": "Owner review",
+                "maxPoints": 10,
+                "points": 5,
+                "status": "stale",
+                "details": "Last review > 3 months ago"
+              },
+              {
+                "id": "department_defined",
+                "label": "Department defined",
+                "maxPoints": 10,
+                "points": 10,
+                "status": "ok",
+                "details": "Pay · Payroll Operations"
+              },
+              {
+                "id": "open_issues",
+                "label": "Open issues",
+                "maxPoints": 10,
+                "points": 0,
+                "status": "missing",
+                "details": "HR module impact not covered"
+              }
+            ]
+          },
+          "archived": false,
+          "canEdit": false,
+          "excerpt": "Go-live for all countries in scope: 1 January 2027.",
+          "inScope": true,
+          "scopeNote": null
+        },
+        {
+          "ref": 2,
+          "passportId": "passport.be-payroll-go-live",
+          "passport": {
+            "schemaVersion": "1.1.0",
+            "id": "passport.be-payroll-go-live",
+            "reference": "#287",
+            "title": "Belgium payroll go-live readiness",
+            "description": "Country workstream of Global Payroll Harmonisation: readiness checks and cut-over plan for Belgium.",
+            "issuer": {
+              "id": "person.lotte-maes",
+              "name": "Lotte Maes",
+              "type": "person"
+            },
+            "owner": {
+              "id": "team.payroll-ops-be",
+              "name": "Payroll Operations BE",
+              "type": "team"
+            },
+            "createdAt": "2026-06-01T09:00:00Z",
+            "updatedAt": "2026-09-10T11:00:00Z",
+            "updatedBy": {
+              "id": "person.lotte-maes",
+              "name": "Lotte Maes",
+              "type": "person"
+            },
+            "lastVerifiedAt": "2026-09-15T15:00:00Z",
+            "expiresAt": "2027-04-30T17:00:00Z",
+            "visa": {
+              "countries": {
+                "mode": "listed",
+                "values": [
+                  "BE"
+                ]
+              },
+              "clients": {
+                "mode": "all",
+                "values": []
+              },
+              "modules": {
+                "mode": "listed",
+                "values": [
+                  "pay"
+                ]
+              }
+            },
+            "departments": [
+              "Pay · Payroll Operations BE"
+            ],
+            "sourceType": "project",
+            "source": {
+              "id": "jira.pay-287",
+              "uri": "https://jira.example.com/browse/PAY-287"
+            },
+            "version": 2,
+            "stamps": [
+              {
+                "id": "stamp.be-go-live.verified.v1",
+                "type": "verified",
+                "at": "2026-06-05T10:00:00Z",
+                "actor": {
+                  "id": "person.lotte-maes",
+                  "name": "Lotte Maes",
+                  "type": "person"
+                },
+                "version": 1,
+                "note": "Workstream plan reviewed with the client.",
+                "relatedStampIds": []
+              },
+              {
+                "id": "stamp.be-go-live.verified.v2",
+                "type": "verified",
+                "at": "2026-09-15T15:00:00Z",
+                "actor": {
+                  "id": "person.lotte-maes",
+                  "name": "Lotte Maes",
+                  "type": "person"
+                },
+                "version": 2,
+                "note": "Cut-over plan reviewed; go-live 1 April 2027 confirmed with the client.",
+                "relatedStampIds": []
+              }
+            ],
+            "linkedSources": [
+              {
+                "id": "doc.be.cutover-plan",
+                "title": "Cut-over plan Belgium",
+                "sourceType": "business_record",
+                "app": "Excel",
+                "version": "v3",
+                "updatedAt": "2026-09-10T11:00:00Z",
+                "countries": [
+                  "BE"
+                ],
+                "uri": "https://sharepoint.example.com/be/cutover-plan.xlsx",
+                "relation": "supports"
+              },
+              {
+                "id": "chat.gph.teams-go-live",
+                "title": "Teams thread",
+                "sourceType": "chat",
+                "app": "Microsoft Teams",
+                "version": null,
+                "updatedAt": "2026-09-18T15:40:00Z",
+                "countries": [
+                  "BE",
+                  "NL"
+                ],
+                "uri": "https://teams.example.com/gph/go-live",
+                "relation": "supports"
+              },
+              {
+                "id": "doc.be.readiness-checklist",
+                "title": "Readiness checklist Belgium",
+                "sourceType": "document",
+                "app": "Confluence",
+                "version": null,
+                "updatedAt": "2026-09-08T09:00:00Z",
+                "countries": [
+                  "BE"
+                ],
+                "uri": "https://confluence.example.com/be/readiness",
+                "relation": "supports"
+              }
+            ],
+            "openIssues": [
+              {
+                "id": "issue.be.parallel-run",
+                "title": "Parallel run schedule not final",
+                "severity": "minor",
+                "openedAt": "2026-09-15T15:00:00Z"
+              }
+            ],
+            "updates": [
+              {
+                "version": 1,
+                "at": "2026-06-01T09:00:00Z",
+                "actor": {
+                  "id": "person.lotte-maes",
+                  "name": "Lotte Maes",
+                  "type": "person"
+                },
+                "summary": "Workstream set up; target go-live 1 April 2027 agreed with the client."
+              },
+              {
+                "version": 2,
+                "at": "2026-09-10T11:00:00Z",
+                "actor": {
+                  "id": "person.lotte-maes",
+                  "name": "Lotte Maes",
+                  "type": "person"
+                },
+                "summary": "Cut-over plan added."
+              }
+            ],
+            "related": [
+              {
+                "passportId": "passport.global-payroll-harmonisation",
+                "title": "Global Payroll Harmonisation",
+                "relation": "Parent project"
+              }
+            ]
+          },
+          "trust": {
+            "score": 95,
+            "level": "high",
+            "criteria": [
+              {
+                "id": "sources_agree",
+                "label": "Sources agree",
+                "maxPoints": 20,
+                "points": 20,
+                "status": "ok",
+                "details": "No conflicts between sources"
+              },
+              {
+                "id": "last_updated",
+                "label": "Last updated",
+                "maxPoints": 20,
+                "points": 20,
+                "status": "ok",
+                "details": "10 Sep 2026 (≤ 3 months)"
+              },
+              {
+                "id": "owner_unit",
+                "label": "Owner (unit)",
+                "maxPoints": 15,
+                "points": 15,
+                "status": "ok",
+                "details": "Payroll Operations BE"
+              },
+              {
+                "id": "scope_coverage",
+                "label": "Scope coverage",
+                "maxPoints": 15,
+                "points": 15,
+                "status": "ok",
+                "details": "Covers BE"
+              },
+              {
+                "id": "owner_review",
+                "label": "Owner review",
+                "maxPoints": 10,
+                "points": 10,
+                "status": "ok",
+                "details": "Reviewed 14 days ago"
+              },
+              {
+                "id": "department_defined",
+                "label": "Department defined",
+                "maxPoints": 10,
+                "points": 10,
+                "status": "ok",
+                "details": "Pay · Payroll Operations BE"
+              },
+              {
+                "id": "open_issues",
+                "label": "Open issues",
+                "maxPoints": 10,
+                "points": 5,
+                "status": "partial",
+                "details": "1 open: Parallel run schedule not final"
+              }
+            ]
+          },
+          "archived": false,
+          "canEdit": false,
+          "excerpt": "Go-live: 1 April 2027.",
+          "inScope": false,
+          "scopeNote": "Applies to BE, not NL"
+        }
+      ],
+      "archived": [
+        {
+          "ref": 3,
+          "passportId": "passport.payroll-harmonisation-pilot-2024",
+          "passport": {
+            "schemaVersion": "1.1.0",
+            "id": "passport.payroll-harmonisation-pilot-2024",
+            "reference": "#112",
+            "title": "Payroll Harmonisation Pilot 2024",
+            "description": "Pilot in Belgium and the Netherlands that tested a common payroll process before the global programme.",
+            "issuer": {
+              "id": "person.pieter-claes",
+              "name": "Pieter Claes",
+              "type": "person"
+            },
+            "owner": {
+              "id": "team.payroll-ops",
+              "name": "Payroll Operations",
+              "type": "team"
+            },
+            "createdAt": "2024-01-15T09:00:00Z",
+            "updatedAt": "2024-06-30T16:00:00Z",
+            "updatedBy": {
+              "id": "person.pieter-claes",
+              "name": "Pieter Claes",
+              "type": "person"
+            },
+            "lastVerifiedAt": "2024-07-01T10:00:00Z",
+            "expiresAt": "2024-12-31T17:00:00Z",
+            "visa": {
+              "countries": {
+                "mode": "listed",
+                "values": [
+                  "BE",
+                  "NL"
+                ]
+              },
+              "clients": {
+                "mode": "all",
+                "values": []
+              },
+              "modules": {
+                "mode": "listed",
+                "values": [
+                  "pay"
+                ]
+              }
+            },
+            "departments": [
+              "Pay · Payroll Operations"
+            ],
+            "sourceType": "project",
+            "source": {
+              "id": "jira.pay-112",
+              "uri": "https://jira.example.com/browse/PAY-112"
+            },
+            "version": 1,
+            "stamps": [
+              {
+                "id": "stamp.pilot.verified.v1",
+                "type": "verified",
+                "at": "2024-07-01T10:00:00Z",
+                "actor": {
+                  "id": "person.pieter-claes",
+                  "name": "Pieter Claes",
+                  "type": "person"
+                },
+                "version": 1,
+                "note": "Pilot results reviewed.",
+                "relatedStampIds": []
+              },
+              {
+                "id": "stamp.pilot.note.v1",
+                "type": "note",
+                "at": "2024-12-31T17:00:00Z",
+                "actor": {
+                  "id": "system.archive",
+                  "name": "Archive",
+                  "type": "system"
+                },
+                "version": 1,
+                "note": "Pilot finished and replaced by the global programme. Passport moved to the archive.",
+                "relatedStampIds": []
+              }
+            ],
+            "linkedSources": [
+              {
+                "id": "doc.gph.pilot-report-2024",
+                "title": "Harmonisation pilot report 2024",
+                "sourceType": "document",
+                "app": "SharePoint",
+                "version": "v2.0",
+                "updatedAt": "2024-06-30T16:00:00Z",
+                "countries": [
+                  "BE",
+                  "NL"
+                ],
+                "uri": "https://sharepoint.example.com/pilot/report",
+                "relation": "supports"
+              },
+              {
+                "id": "doc.pilot.planning",
+                "title": "Pilot planning",
+                "sourceType": "business_record",
+                "app": "Excel",
+                "version": null,
+                "updatedAt": "2024-02-01T09:00:00Z",
+                "countries": [],
+                "uri": "https://sharepoint.example.com/pilot/planning.xlsx",
+                "relation": "supports"
+              }
+            ],
+            "openIssues": [],
+            "updates": [
+              {
+                "version": 1,
+                "at": "2024-06-30T16:00:00Z",
+                "actor": {
+                  "id": "person.pieter-claes",
+                  "name": "Pieter Claes",
+                  "type": "person"
+                },
+                "summary": "Final pilot report: go-live for BE and NL planned for 1 January 2026 (later replaced by the global programme)."
+              }
+            ],
+            "related": [
+              {
+                "passportId": "passport.global-payroll-harmonisation",
+                "title": "Global Payroll Harmonisation",
+                "relation": "Replaced by"
+              }
+            ]
+          },
+          "trust": {
+            "score": 70,
+            "level": "medium",
+            "criteria": [
+              {
+                "id": "sources_agree",
+                "label": "Sources agree",
+                "maxPoints": 20,
+                "points": 20,
+                "status": "ok",
+                "details": "No conflicts between sources"
+              },
+              {
+                "id": "last_updated",
+                "label": "Last updated",
+                "maxPoints": 20,
+                "points": 0,
+                "status": "stale",
+                "details": "30 Jun 2024 (> 6 months)"
+              },
+              {
+                "id": "owner_unit",
+                "label": "Owner (unit)",
+                "maxPoints": 15,
+                "points": 15,
+                "status": "ok",
+                "details": "Payroll Operations"
+              },
+              {
+                "id": "scope_coverage",
+                "label": "Scope coverage",
+                "maxPoints": 15,
+                "points": 15,
+                "status": "ok",
+                "details": "Covers 2/2 countries"
+              },
+              {
+                "id": "owner_review",
+                "label": "Owner review",
+                "maxPoints": 10,
+                "points": 0,
+                "status": "stale",
+                "details": "Last review > 6 months ago"
+              },
+              {
+                "id": "department_defined",
+                "label": "Department defined",
+                "maxPoints": 10,
+                "points": 10,
+                "status": "ok",
+                "details": "Pay · Payroll Operations"
+              },
+              {
+                "id": "open_issues",
+                "label": "Open issues",
+                "maxPoints": 10,
+                "points": 10,
+                "status": "ok",
+                "details": "No open issues"
+              }
+            ]
+          },
+          "archived": true,
+          "canEdit": false,
+          "excerpt": "The pilot in Belgium and the Netherlands planned go-live for 1 January 2026.",
+          "inScope": true,
+          "scopeNote": null
+        }
+      ],
+      "conflicts": [
+        {
+          "id": "conflict.1-January-2027.1-April-2027",
+          "topic": "When does payroll harmonisation go live in Belgium?",
+          "leadingClaim": "1 January 2027",
+          "positions": [
+            {
+              "claim": "1 January 2027",
+              "support": 63,
+              "evidence": [
+                {
+                  "passportId": "passport.global-payroll-harmonisation",
+                  "passportIds": [
+                    "passport.global-payroll-harmonisation"
+                  ],
+                  "linkedSourceId": "doc.gph.project-plan",
+                  "title": "Project plan",
+                  "app": "SharePoint",
+                  "date": "2026-09-03T10:00:00Z",
+                  "excerpt": "Go-live for all countries in scope: 1 January 2027."
+                }
+              ]
+            },
+            {
+              "claim": "1 April 2027",
+              "support": 63,
+              "evidence": [
+                {
+                  "passportId": "passport.global-payroll-harmonisation",
+                  "passportIds": [
+                    "passport.global-payroll-harmonisation"
+                  ],
+                  "linkedSourceId": "chat.gph.teams-go-live",
+                  "title": "Teams thread",
+                  "app": "Microsoft Teams",
+                  "date": "2026-09-18T15:40:00Z",
+                  "excerpt": "Jane De Smet: Update for Belgium and the Netherlands: go-live moves to 1 April 2027 because the client needs an extra parallel run."
+                }
+              ]
+            }
+          ],
+          "difference": "Project plan says 1 January 2027; Teams thread says 1 April 2027. The most recent source is the Teams thread (18 Sep 2026), which says 1 April 2027.",
+          "resolveWith": {
+            "id": "person.jane-desmet",
+            "name": "Jane De Smet",
+            "unit": "Transformation Office",
+            "contact": "jane.desmet@example.com",
+            "expertise": [
+              "Programme lead, Global Payroll Harmonisation",
+              "Payroll process design"
+            ],
+            "reason": "Leads Transformation Office, owner of \"Global Payroll Harmonisation\", whose own sources give both answers."
+          }
+        }
+      ],
+      "uncertainty": [
+        "Sources disagree: 1 January 2027 (1 source) vs 1 April 2027 (1 source).",
+        "Scope coverage: Covers 15/17 countries.",
+        "Owner review: Last review > 3 months ago.",
+        "Open issues: HR module impact not covered.",
+        "1 archived passport also matched and was left out: Payroll Harmonisation Pilot 2024."
+      ],
+      "whoToContact": {
+        "id": "person.jane-desmet",
+        "name": "Jane De Smet",
+        "unit": "Transformation Office",
+        "contact": "jane.desmet@example.com",
+        "expertise": [
+          "Programme lead, Global Payroll Harmonisation",
+          "Payroll process design"
+        ],
+        "reason": "Leads Transformation Office, owner of \"Global Payroll Harmonisation\", whose own sources give both answers."
+      }
+    }
+  },
+  "passports": {
+    "passport.global-payroll-harmonisation": {
+      "passport": {
+        "schemaVersion": "1.1.0",
+        "id": "passport.global-payroll-harmonisation",
+        "reference": "#241",
+        "title": "Global Payroll Harmonisation",
+        "description": "Harmonise payroll processes and configurations across key countries to improve efficiency, compliance and data quality.",
+        "issuer": {
+          "id": "person.jane-desmet",
+          "name": "Jane De Smet",
+          "type": "person"
+        },
+        "owner": {
+          "id": "team.transformation-office",
+          "name": "Transformation Office",
+          "type": "team"
+        },
+        "createdAt": "2025-11-03T09:00:00Z",
+        "updatedAt": "2026-09-12T14:20:00Z",
+        "updatedBy": {
+          "id": "person.jane-desmet",
+          "name": "Jane De Smet",
+          "type": "person"
+        },
+        "lastVerifiedAt": null,
+        "expiresAt": "2027-06-30T17:00:00Z",
+        "visa": {
+          "countries": {
+            "mode": "listed",
+            "values": [
+              "BE",
+              "NL",
+              "FR",
+              "DE",
+              "ES",
+              "LU",
+              "AT",
+              "IT",
+              "PT",
+              "IE",
+              "PL",
+              "CZ",
+              "SK",
+              "HU",
+              "DK",
+              "SE",
+              "FI"
+            ]
+          },
+          "clients": {
+            "mode": "all",
+            "values": []
+          },
+          "modules": {
+            "mode": "listed",
+            "values": [
+              "pay",
+              "hr",
+              "time"
+            ]
+          }
+        },
+        "departments": [
+          "Pay · Payroll Operations",
+          "HR · HR Operations",
+          "Time · Workforce Management",
+          "Finance · Payroll Accounting"
+        ],
+        "sourceType": "project",
+        "source": {
+          "id": "jira.pay-241",
+          "uri": "https://jira.example.com/browse/PAY-241"
+        },
+        "version": 3,
+        "stamps": [
+          {
+            "id": "stamp.gph.verified.v1",
+            "type": "verified",
+            "at": "2025-11-10T10:00:00Z",
+            "actor": {
+              "id": "person.jane-desmet",
+              "name": "Jane De Smet",
+              "type": "person"
+            },
+            "version": 1,
+            "note": "Initial scope and plan reviewed.",
+            "relatedStampIds": []
+          },
+          {
+            "id": "stamp.gph.verified.v2",
+            "type": "verified",
+            "at": "2026-05-20T09:30:00Z",
+            "actor": {
+              "id": "person.jane-desmet",
+              "name": "Jane De Smet",
+              "type": "person"
+            },
+            "version": 2,
+            "note": "Extended scope (17 countries) reviewed.",
+            "relatedStampIds": []
+          },
+          {
+            "id": "stamp.gph.conflict.v3",
+            "type": "conflict",
+            "at": "2026-09-18T16:05:00Z",
+            "actor": {
+              "id": "system.conflict-detector",
+              "name": "Conflict Detector",
+              "type": "system"
+            },
+            "version": 3,
+            "note": "Conflicting go-live date: the project plan (v1.4) says 1 January 2027, the Teams thread of 18 Sep 2026 says 1 April 2027.",
+            "relatedStampIds": []
+          },
+          {
+            "id": "stamp.gph.note.v3",
+            "type": "note",
+            "at": "2026-09-20T08:00:00Z",
+            "actor": {
+              "id": "system.coverage-check",
+              "name": "Coverage Check",
+              "type": "system"
+            },
+            "version": 3,
+            "note": "HR module impact is not covered by any source.",
+            "relatedStampIds": []
+          }
+        ],
+        "linkedSources": [
+          {
+            "id": "doc.gph.project-plan",
+            "title": "Project plan",
+            "sourceType": "document",
+            "app": "SharePoint",
+            "version": "v1.4",
+            "updatedAt": "2026-09-03T10:00:00Z",
+            "countries": [],
+            "uri": "https://sharepoint.example.com/gph/project-plan",
+            "relation": "supports"
+          },
+          {
+            "id": "chat.gph.teams-go-live",
+            "title": "Teams thread",
+            "sourceType": "chat",
+            "app": "Microsoft Teams",
+            "version": null,
+            "updatedAt": "2026-09-18T15:40:00Z",
+            "countries": [
+              "BE",
+              "NL"
+            ],
+            "uri": "https://teams.example.com/gph/go-live",
+            "relation": "contradicts"
+          },
+          {
+            "id": "doc.gph.scope-file-2024",
+            "title": "Scope file 2024",
+            "sourceType": "business_record",
+            "app": "Excel",
+            "version": null,
+            "updatedAt": "2024-03-14T09:00:00Z",
+            "countries": [
+              "BE",
+              "NL",
+              "FR",
+              "DE",
+              "ES",
+              "LU",
+              "IT",
+              "PT",
+              "IE",
+              "SE"
+            ],
+            "uri": "https://sharepoint.example.com/gph/scope-2024.xlsx",
+            "relation": "derived_from"
+          },
+          {
+            "id": "doc.gph.change-log",
+            "title": "Change log",
+            "sourceType": "document",
+            "app": "Confluence",
+            "version": null,
+            "updatedAt": "2026-09-12T14:20:00Z",
+            "countries": [],
+            "uri": "https://confluence.example.com/gph/change-log",
+            "relation": "supports"
+          },
+          {
+            "id": "email.gph.steering-committee",
+            "title": "Steering committee minutes",
+            "sourceType": "email",
+            "app": "Outlook",
+            "version": null,
+            "updatedAt": "2026-08-28T12:00:00Z",
+            "countries": [],
+            "uri": "https://mail.example.com/gph/steering-2026-08",
+            "relation": "supports"
+          },
+          {
+            "id": "doc.gph.country-checklist",
+            "title": "Country readiness checklist",
+            "sourceType": "business_record",
+            "app": "Excel",
+            "version": "v7",
+            "updatedAt": "2026-07-15T09:00:00Z",
+            "countries": [
+              "BE",
+              "NL",
+              "FR",
+              "DE",
+              "ES",
+              "LU",
+              "AT",
+              "IT",
+              "PT",
+              "IE",
+              "PL",
+              "CZ",
+              "SK",
+              "HU",
+              "SE"
+            ],
+            "uri": "https://sharepoint.example.com/gph/country-checklist.xlsx",
+            "relation": "supports"
+          },
+          {
+            "id": "note.gph.germany-expert",
+            "title": "Germany payroll expert note",
+            "sourceType": "expert_note",
+            "app": "OneNote",
+            "version": null,
+            "updatedAt": "2026-08-02T09:00:00Z",
+            "countries": [
+              "DE"
+            ],
+            "uri": "https://onenote.example.com/gph/germany",
+            "relation": "supports"
+          },
+          {
+            "id": "doc.gph.pilot-report-2024",
+            "title": "Harmonisation pilot report 2024",
+            "sourceType": "document",
+            "app": "SharePoint",
+            "version": "v2.0",
+            "updatedAt": "2024-06-30T16:00:00Z",
+            "countries": [
+              "BE",
+              "NL"
+            ],
+            "uri": "https://sharepoint.example.com/pilot/report",
+            "relation": "supersedes"
+          }
+        ],
+        "openIssues": [
+          {
+            "id": "issue.gph.hr-impact",
+            "title": "HR module impact not covered",
+            "severity": "major",
+            "openedAt": "2026-09-20T08:00:00Z"
+          }
+        ],
+        "updates": [
+          {
+            "version": 1,
+            "at": "2025-11-03T09:00:00Z",
+            "actor": {
+              "id": "person.jane-desmet",
+              "name": "Jane De Smet",
+              "type": "person"
+            },
+            "summary": "Project started: 12 countries in scope, go-live 1 January 2027."
+          },
+          {
+            "version": 2,
+            "at": "2026-05-12T11:00:00Z",
+            "actor": {
+              "id": "person.jane-desmet",
+              "name": "Jane De Smet",
+              "type": "person"
+            },
+            "summary": "Scope extended from 12 to 17 countries (added AT, PL, CZ, SK, HU)."
+          },
+          {
+            "version": 3,
+            "at": "2026-09-12T14:20:00Z",
+            "actor": {
+              "id": "person.jane-desmet",
+              "name": "Jane De Smet",
+              "type": "person"
+            },
+            "summary": "Project plan updated to v1.4 and change log added. Go-live date unchanged (1 January 2027)."
+          }
+        ],
+        "related": [
+          {
+            "passportId": "passport.be-payroll-go-live",
+            "title": "Belgium payroll go-live readiness",
+            "relation": "Country workstream"
+          },
+          {
+            "passportId": "passport.payroll-harmonisation-pilot-2024",
+            "title": "Payroll Harmonisation Pilot 2024",
+            "relation": "Earlier pilot (replaced)"
+          }
+        ]
+      },
+      "trust": {
+        "score": 63,
+        "level": "medium",
+        "criteria": [
+          {
+            "id": "sources_agree",
+            "label": "Sources agree",
+            "maxPoints": 20,
+            "points": 0,
+            "status": "conflict",
+            "details": "Conflicting go-live date"
+          },
+          {
+            "id": "last_updated",
+            "label": "Last updated",
+            "maxPoints": 20,
+            "points": 20,
+            "status": "ok",
+            "details": "12 Sep 2026 (≤ 3 months)"
+          },
+          {
+            "id": "owner_unit",
+            "label": "Owner (unit)",
+            "maxPoints": 15,
+            "points": 15,
+            "status": "ok",
+            "details": "Transformation Office"
+          },
+          {
+            "id": "scope_coverage",
+            "label": "Scope coverage",
+            "maxPoints": 15,
+            "points": 13,
+            "status": "partial",
+            "details": "Covers 15/17 countries"
+          },
+          {
+            "id": "owner_review",
+            "label": "Owner review",
+            "maxPoints": 10,
+            "points": 5,
+            "status": "stale",
+            "details": "Last review > 3 months ago"
+          },
+          {
+            "id": "department_defined",
+            "label": "Department defined",
+            "maxPoints": 10,
+            "points": 10,
+            "status": "ok",
+            "details": "Pay · Payroll Operations"
+          },
+          {
+            "id": "open_issues",
+            "label": "Open issues",
+            "maxPoints": 10,
+            "points": 0,
+            "status": "missing",
+            "details": "HR module impact not covered"
+          }
+        ]
+      },
+      "archived": false,
+      "canEdit": false
+    },
+    "passport.be-payroll-go-live": {
+      "passport": {
+        "schemaVersion": "1.1.0",
+        "id": "passport.be-payroll-go-live",
+        "reference": "#287",
+        "title": "Belgium payroll go-live readiness",
+        "description": "Country workstream of Global Payroll Harmonisation: readiness checks and cut-over plan for Belgium.",
+        "issuer": {
+          "id": "person.lotte-maes",
+          "name": "Lotte Maes",
+          "type": "person"
+        },
+        "owner": {
+          "id": "team.payroll-ops-be",
+          "name": "Payroll Operations BE",
+          "type": "team"
+        },
+        "createdAt": "2026-06-01T09:00:00Z",
+        "updatedAt": "2026-09-10T11:00:00Z",
+        "updatedBy": {
+          "id": "person.lotte-maes",
+          "name": "Lotte Maes",
+          "type": "person"
+        },
+        "lastVerifiedAt": "2026-09-15T15:00:00Z",
+        "expiresAt": "2027-04-30T17:00:00Z",
+        "visa": {
+          "countries": {
+            "mode": "listed",
+            "values": [
+              "BE"
+            ]
+          },
+          "clients": {
+            "mode": "all",
+            "values": []
+          },
+          "modules": {
+            "mode": "listed",
+            "values": [
+              "pay"
+            ]
+          }
+        },
+        "departments": [
+          "Pay · Payroll Operations BE"
+        ],
+        "sourceType": "project",
+        "source": {
+          "id": "jira.pay-287",
+          "uri": "https://jira.example.com/browse/PAY-287"
+        },
+        "version": 2,
+        "stamps": [
+          {
+            "id": "stamp.be-go-live.verified.v1",
+            "type": "verified",
+            "at": "2026-06-05T10:00:00Z",
+            "actor": {
+              "id": "person.lotte-maes",
+              "name": "Lotte Maes",
+              "type": "person"
+            },
+            "version": 1,
+            "note": "Workstream plan reviewed with the client.",
+            "relatedStampIds": []
+          },
+          {
+            "id": "stamp.be-go-live.verified.v2",
+            "type": "verified",
+            "at": "2026-09-15T15:00:00Z",
+            "actor": {
+              "id": "person.lotte-maes",
+              "name": "Lotte Maes",
+              "type": "person"
+            },
+            "version": 2,
+            "note": "Cut-over plan reviewed; go-live 1 April 2027 confirmed with the client.",
+            "relatedStampIds": []
+          }
+        ],
+        "linkedSources": [
+          {
+            "id": "doc.be.cutover-plan",
+            "title": "Cut-over plan Belgium",
+            "sourceType": "business_record",
+            "app": "Excel",
+            "version": "v3",
+            "updatedAt": "2026-09-10T11:00:00Z",
+            "countries": [
+              "BE"
+            ],
+            "uri": "https://sharepoint.example.com/be/cutover-plan.xlsx",
+            "relation": "supports"
+          },
+          {
+            "id": "chat.gph.teams-go-live",
+            "title": "Teams thread",
+            "sourceType": "chat",
+            "app": "Microsoft Teams",
+            "version": null,
+            "updatedAt": "2026-09-18T15:40:00Z",
+            "countries": [
+              "BE",
+              "NL"
+            ],
+            "uri": "https://teams.example.com/gph/go-live",
+            "relation": "supports"
+          },
+          {
+            "id": "doc.be.readiness-checklist",
+            "title": "Readiness checklist Belgium",
+            "sourceType": "document",
+            "app": "Confluence",
+            "version": null,
+            "updatedAt": "2026-09-08T09:00:00Z",
+            "countries": [
+              "BE"
+            ],
+            "uri": "https://confluence.example.com/be/readiness",
+            "relation": "supports"
+          }
+        ],
+        "openIssues": [
+          {
+            "id": "issue.be.parallel-run",
+            "title": "Parallel run schedule not final",
+            "severity": "minor",
+            "openedAt": "2026-09-15T15:00:00Z"
+          }
+        ],
+        "updates": [
+          {
+            "version": 1,
+            "at": "2026-06-01T09:00:00Z",
+            "actor": {
+              "id": "person.lotte-maes",
+              "name": "Lotte Maes",
+              "type": "person"
+            },
+            "summary": "Workstream set up; target go-live 1 April 2027 agreed with the client."
+          },
+          {
+            "version": 2,
+            "at": "2026-09-10T11:00:00Z",
+            "actor": {
+              "id": "person.lotte-maes",
+              "name": "Lotte Maes",
+              "type": "person"
+            },
+            "summary": "Cut-over plan added."
+          }
+        ],
+        "related": [
+          {
+            "passportId": "passport.global-payroll-harmonisation",
+            "title": "Global Payroll Harmonisation",
+            "relation": "Parent project"
+          }
+        ]
+      },
+      "trust": {
+        "score": 95,
+        "level": "high",
+        "criteria": [
+          {
+            "id": "sources_agree",
+            "label": "Sources agree",
+            "maxPoints": 20,
+            "points": 20,
+            "status": "ok",
+            "details": "No conflicts between sources"
+          },
+          {
+            "id": "last_updated",
+            "label": "Last updated",
+            "maxPoints": 20,
+            "points": 20,
+            "status": "ok",
+            "details": "10 Sep 2026 (≤ 3 months)"
+          },
+          {
+            "id": "owner_unit",
+            "label": "Owner (unit)",
+            "maxPoints": 15,
+            "points": 15,
+            "status": "ok",
+            "details": "Payroll Operations BE"
+          },
+          {
+            "id": "scope_coverage",
+            "label": "Scope coverage",
+            "maxPoints": 15,
+            "points": 15,
+            "status": "ok",
+            "details": "Covers BE"
+          },
+          {
+            "id": "owner_review",
+            "label": "Owner review",
+            "maxPoints": 10,
+            "points": 10,
+            "status": "ok",
+            "details": "Reviewed 14 days ago"
+          },
+          {
+            "id": "department_defined",
+            "label": "Department defined",
+            "maxPoints": 10,
+            "points": 10,
+            "status": "ok",
+            "details": "Pay · Payroll Operations BE"
+          },
+          {
+            "id": "open_issues",
+            "label": "Open issues",
+            "maxPoints": 10,
+            "points": 5,
+            "status": "partial",
+            "details": "1 open: Parallel run schedule not final"
+          }
+        ]
+      },
+      "archived": false,
+      "canEdit": false
+    },
+    "passport.payroll-harmonisation-pilot-2024": {
+      "passport": {
+        "schemaVersion": "1.1.0",
+        "id": "passport.payroll-harmonisation-pilot-2024",
+        "reference": "#112",
+        "title": "Payroll Harmonisation Pilot 2024",
+        "description": "Pilot in Belgium and the Netherlands that tested a common payroll process before the global programme.",
+        "issuer": {
+          "id": "person.pieter-claes",
+          "name": "Pieter Claes",
+          "type": "person"
+        },
+        "owner": {
+          "id": "team.payroll-ops",
+          "name": "Payroll Operations",
+          "type": "team"
+        },
+        "createdAt": "2024-01-15T09:00:00Z",
+        "updatedAt": "2024-06-30T16:00:00Z",
+        "updatedBy": {
+          "id": "person.pieter-claes",
+          "name": "Pieter Claes",
+          "type": "person"
+        },
+        "lastVerifiedAt": "2024-07-01T10:00:00Z",
+        "expiresAt": "2024-12-31T17:00:00Z",
+        "visa": {
+          "countries": {
+            "mode": "listed",
+            "values": [
+              "BE",
+              "NL"
+            ]
+          },
+          "clients": {
+            "mode": "all",
+            "values": []
+          },
+          "modules": {
+            "mode": "listed",
+            "values": [
+              "pay"
+            ]
+          }
+        },
+        "departments": [
+          "Pay · Payroll Operations"
+        ],
+        "sourceType": "project",
+        "source": {
+          "id": "jira.pay-112",
+          "uri": "https://jira.example.com/browse/PAY-112"
+        },
+        "version": 1,
+        "stamps": [
+          {
+            "id": "stamp.pilot.verified.v1",
+            "type": "verified",
+            "at": "2024-07-01T10:00:00Z",
+            "actor": {
+              "id": "person.pieter-claes",
+              "name": "Pieter Claes",
+              "type": "person"
+            },
+            "version": 1,
+            "note": "Pilot results reviewed.",
+            "relatedStampIds": []
+          },
+          {
+            "id": "stamp.pilot.note.v1",
+            "type": "note",
+            "at": "2024-12-31T17:00:00Z",
+            "actor": {
+              "id": "system.archive",
+              "name": "Archive",
+              "type": "system"
+            },
+            "version": 1,
+            "note": "Pilot finished and replaced by the global programme. Passport moved to the archive.",
+            "relatedStampIds": []
+          }
+        ],
+        "linkedSources": [
+          {
+            "id": "doc.gph.pilot-report-2024",
+            "title": "Harmonisation pilot report 2024",
+            "sourceType": "document",
+            "app": "SharePoint",
+            "version": "v2.0",
+            "updatedAt": "2024-06-30T16:00:00Z",
+            "countries": [
+              "BE",
+              "NL"
+            ],
+            "uri": "https://sharepoint.example.com/pilot/report",
+            "relation": "supports"
+          },
+          {
+            "id": "doc.pilot.planning",
+            "title": "Pilot planning",
+            "sourceType": "business_record",
+            "app": "Excel",
+            "version": null,
+            "updatedAt": "2024-02-01T09:00:00Z",
+            "countries": [],
+            "uri": "https://sharepoint.example.com/pilot/planning.xlsx",
+            "relation": "supports"
+          }
+        ],
+        "openIssues": [],
+        "updates": [
+          {
+            "version": 1,
+            "at": "2024-06-30T16:00:00Z",
+            "actor": {
+              "id": "person.pieter-claes",
+              "name": "Pieter Claes",
+              "type": "person"
+            },
+            "summary": "Final pilot report: go-live for BE and NL planned for 1 January 2026 (later replaced by the global programme)."
+          }
+        ],
+        "related": [
+          {
+            "passportId": "passport.global-payroll-harmonisation",
+            "title": "Global Payroll Harmonisation",
+            "relation": "Replaced by"
+          }
+        ]
+      },
+      "trust": {
+        "score": 70,
+        "level": "medium",
+        "criteria": [
+          {
+            "id": "sources_agree",
+            "label": "Sources agree",
+            "maxPoints": 20,
+            "points": 20,
+            "status": "ok",
+            "details": "No conflicts between sources"
+          },
+          {
+            "id": "last_updated",
+            "label": "Last updated",
+            "maxPoints": 20,
+            "points": 0,
+            "status": "stale",
+            "details": "30 Jun 2024 (> 6 months)"
+          },
+          {
+            "id": "owner_unit",
+            "label": "Owner (unit)",
+            "maxPoints": 15,
+            "points": 15,
+            "status": "ok",
+            "details": "Payroll Operations"
+          },
+          {
+            "id": "scope_coverage",
+            "label": "Scope coverage",
+            "maxPoints": 15,
+            "points": 15,
+            "status": "ok",
+            "details": "Covers 2/2 countries"
+          },
+          {
+            "id": "owner_review",
+            "label": "Owner review",
+            "maxPoints": 10,
+            "points": 0,
+            "status": "stale",
+            "details": "Last review > 6 months ago"
+          },
+          {
+            "id": "department_defined",
+            "label": "Department defined",
+            "maxPoints": 10,
+            "points": 10,
+            "status": "ok",
+            "details": "Pay · Payroll Operations"
+          },
+          {
+            "id": "open_issues",
+            "label": "Open issues",
+            "maxPoints": 10,
+            "points": 10,
+            "status": "ok",
+            "details": "No open issues"
+          }
+        ]
+      },
+      "archived": true,
+      "canEdit": false
+    }
+  }
+}

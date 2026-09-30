@@ -1,0 +1,129 @@
+{
+  "schemaVersion": "1.1.0",
+  "id": "passport.payroll-harmonisation-pilot-2024",
+  "reference": "#112",
+  "title": "Payroll Harmonisation Pilot 2024",
+  "description": "Pilot in Belgium and the Netherlands that tested a common payroll process before the global programme.",
+  "issuer": {
+    "id": "person.pieter-claes",
+    "name": "Pieter Claes",
+    "type": "person"
+  },
+  "owner": {
+    "id": "team.payroll-ops",
+    "name": "Payroll Operations",
+    "type": "team"
+  },
+  "createdAt": "2024-01-15T09:00:00Z",
+  "updatedAt": "2024-06-30T16:00:00Z",
+  "updatedBy": {
+    "id": "person.pieter-claes",
+    "name": "Pieter Claes",
+    "type": "person"
+  },
+  "lastVerifiedAt": "2024-07-01T10:00:00Z",
+  "expiresAt": "2024-12-31T17:00:00Z",
+  "visa": {
+    "countries": {
+      "mode": "listed",
+      "values": [
+        "BE",
+        "NL"
+      ]
+    },
+    "clients": {
+      "mode": "all",
+      "values": []
+    },
+    "modules": {
+      "mode": "listed",
+      "values": [
+        "pay"
+      ]
+    }
+  },
+  "departments": [
+    "Pay · Payroll Operations"
+  ],
+  "sourceType": "project",
+  "source": {
+    "id": "jira.pay-112",
+    "uri": "https://jira.example.com/browse/PAY-112"
+  },
+  "version": 1,
+  "stamps": [
+    {
+      "id": "stamp.pilot.verified.v1",
+      "type": "verified",
+      "at": "2024-07-01T10:00:00Z",
+      "actor": {
+        "id": "person.pieter-claes",
+        "name": "Pieter Claes",
+        "type": "person"
+      },
+      "version": 1,
+      "note": "Pilot results reviewed.",
+      "relatedStampIds": []
+    },
+    {
+      "id": "stamp.pilot.note.v1",
+      "type": "note",
+      "at": "2024-12-31T17:00:00Z",
+      "actor": {
+        "id": "system.archive",
+        "name": "Archive",
+        "type": "system"
+      },
+      "version": 1,
+      "note": "Pilot finished and replaced by the global programme. Passport moved to the archive.",
+      "relatedStampIds": []
+    }
+  ],
+  "linkedSources": [
+    {
+      "id": "doc.gph.pilot-report-2024",
+      "title": "Harmonisation pilot report 2024",
+      "sourceType": "document",
+      "app": "SharePoint",
+      "version": "v2.0",
+      "updatedAt": "2024-06-30T16:00:00Z",
+      "countries": [
+        "BE",
+        "NL"
+      ],
+      "uri": "https://sharepoint.example.com/pilot/report",
+      "relation": "supports"
+    },
+    {
+      "id": "doc.pilot.planning",
+      "title": "Pilot planning",
+      "sourceType": "business_record",
+      "app": "Excel",
+      "version": null,
+      "updatedAt": "2024-02-01T09:00:00Z",
+      "countries": [],
+      "uri": "https://sharepoint.example.com/pilot/planning.xlsx",
+      "relation": "supports"
+    }
+  ],
+  "openIssues": [],
+  "updates": [
+    {
+      "version": 1,
+      "at": "2024-06-30T16:00:00Z",
+      "actor": {
+        "id": "person.pieter-claes",
+        "name": "Pieter Claes",
+        "type": "person"
+      },
+      "summary": "Final pilot report: go-live for BE and NL planned for 1 January 2026 (later replaced by the global programme)."
+    }
+  ],
+  "related": [
+    {
+      "passportId": "passport.global-payroll-harmonisation",
+      "title": "Global Payroll Harmonisation",
+      "relation": "Replaced by"
+    }
+  ]
+}
